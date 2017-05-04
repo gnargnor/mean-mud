@@ -1,0 +1,28 @@
+<div ng-include="'views/partials/usernav.html'"></div>
+
+<div class="container">
+  <h2>Your Location Creation Station</h2>
+    <form ng-submit="location.locationCreator(location.locationsObject.curLoc)">
+        <div class="form-group">
+            <label for="locName">Title Your Location:</label>
+            <input type="text" class="form-control" id="locName" ng-model="location.locationsObject.curLoc.locName">
+        </div>
+        <div class="form-group">
+            <label for="shortDesc">a Short Description:</label>
+            <input type="text" class="form-control" id="locShortDesc" ng-model="location.locationsObject.curLoc.locShortDesc">
+        </div>
+        <div class="form-group">
+            <label for="locDesc">Full Description:</label>
+            <input type="text" class="form-control" id="locDesc" ng-model="location.locationsObject.curLoc.locDesc">
+        </div>
+        <div class="form-group">
+            <label for="locNotes">Location Notes (not visible during gameplay):</label>
+            <input type="text" class="form-control" id="locNotes" ng-model="location.locationsObject.curLoc.locNotes">
+        </div>
+        <button type="submit" class="btn btn-default">Create</button>
+    </form>
+    <button ng-click="location.locationUpdater({locName : 'Cheetos'})">update test</button>
+    <button ng-click="location.locationDeleter({_id : '420'})">delete test</button>
+
+
+</div>

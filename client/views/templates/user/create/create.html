@@ -1,0 +1,23 @@
+<div ng-include="'views/partials/usernav.html'"></div>
+<!-- <h1 class="lead alert alert-danger" role="alert" ng-if="create.messageObject.message != ''">{{create.messageObject.message}}</h1> -->
+<div class="container">
+  <h2>World Creator</h2>
+  <hr>
+  <form ng-submit="create.worldCreator(create.worldsObject.curWorld)">
+    <div class="form-group">
+      <label for="title">Title Your Creation:</label>
+      <input type="text" class="form-control" id="worldName" ng-model="create.worldsObject.curWorld.worldName">
+    </div>
+    <div class="form-group">
+      <label for="shortDesc">a Short Description:</label>
+      <input type="text" class="form-control" id="worldShortDesc" ng-model="create.worldsObject.curWorld.worldDesc">
+    </div>
+    <div class="form-group">
+      <label for="author">and Your Signature Please:</label>
+      <input type="text" class="form-control" id="worldAuthor" ng-model="create.worldsObject.curWorld.author">
+    </div>
+    <button type="submit" class="btn btn-default">Create</button>
+  </form>
+  <button ng-click="create.worldUpdater({worldName: 'buns'})">Update Test</button>
+  <button ng-click="create.worldDeleter({worldName: 'buns'})">Delete Test</button>
+</div>

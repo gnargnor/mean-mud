@@ -1,0 +1,36 @@
+<div ng-include="'views/partials/usernav.html'"></div>
+<h1 class="lead alert alert-danger" role="alert" ng-if="create.messageObject.message != ''">{{create.messageObject.message}}</h1>
+<!-- edit world with existing world link could go here -->
+<div class="container">
+    <h2>{{create.worldsObject.curWorld.worldName}}</h2>
+    <div class="row" id="locations">
+        <div class="col col-lg-4 col-md-4 col-sm-12" id="locNames">
+          <h4><strong>Locations:</strong></h4>
+          <p>(click to see description)</p>
+            <div ng-repeat="loc in create.locationsObject.curLocs">
+                <p ng-click="create.displayDesc(loc)">{{loc.locName}}</p>
+            </div>
+          <span class="glyphicon glyphicon-plus" ng-click="create.addLocation()"></span>
+        </div>
+        <div class="col col-lg-8 col-md-8 col-sm-12" id="locDetail">
+            <h3>{{create.locationsObject.curLoc.locName}}</h3>
+            <p>{{create.locationsObject.curLoc.locDesc}}</p>
+            <span class="glyphicon glyphicon-pencil" ng-click="create.editLocation(create.locationsObject.curLoc)" ng-show="create.locationsObject.curLoc.locName">
+        </div>
+    </div>
+    <div class="row" id="items">
+        <div class="col col-lg-4 col-md-4 col-sm-12" id="itemNames">
+          <h4><strong>Items:</strong></h4>
+          <p>(click to see description)</p>
+            <div ng-repeat="item in create.itemsObject.curItems">
+                <p ng-click="create.displayDesc(item)">{{item.itemName}}</p>
+            </div>
+            <span class="glyphicon glyphicon-plus" ng-click="create.addItem()"></span>
+        </div>
+        <div class="col col-lg-8 col-md-8 col-sm-12" id="itemDetail">
+            <h3 ng-click="create.editItem(create.itemsObject.curItem)">{{create.itemsObject.curItem.itemName}}</h3>
+            <p ng-click="create.editLocation(create.itemsObject.curItem)">{{create.itemsObject.curItem.itemDesc}}</p>
+            <span class="glyphicon glyphicon-pencil" ng-click="create.editItem()" ng-show="create.itemsObject.curItem.itemName">
+        </div>
+    </div>
+</div>
