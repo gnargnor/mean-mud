@@ -13,8 +13,8 @@ var register = require('./routes/register');
 // var universe = require('./routes/universe');
 var world = require('./routes/world');
 var location = require('./routes/location');
-// var sight = require('./routes/sight');
-// var item = require('./routes/item');
+var sight = require('./routes/sight');
+var item = require('./routes/item');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -40,8 +40,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-// app.use('/item', item);
-// app.use('/sight', sight);
+app.use('/item', item);
+app.use('/sight', sight);
 app.use('/location', location);
 app.use('/world', world);
 // app.use('/universe', universe);

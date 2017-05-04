@@ -5,9 +5,7 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
     message: ''
   },
 
-  // var Universe = {};
-  //
-  // //world definitions
+  //angular vessels
   worldsObject : {
     curWorlds : [],
     curWorld : {
@@ -27,6 +25,25 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
     }
   },
 
+  itemsObject : {
+    curItems : [],
+    curItem : {
+      itemName : '',
+      itemDesc : '',
+      itemNotes : ''
+    }
+  },
+
+  sightsObject : {
+    curSights : [{keyword: 'crap', sightDesc: 'dirty crap', isImportant: false}],
+    curSight : {
+      keyword : '',
+      sightDesc : '',
+      isImportant : ''
+    }
+  },
+
+  //world functions
   worldCreator : function(newWorld){
     var postWorld = newWorld;
     newWorld = {};
@@ -52,7 +69,9 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
         console.log('worldDeleter response: ', response);
       });
   },
+  //world functions
 
+  //location functions
   locationCreator : function(newLoc){
     var postLoc = newLoc;
     curLoc = {};
@@ -78,7 +97,66 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
       .then(function(response){
         console.log('locationDeleter: ', response);
       });
-  }
+  },//location functions
+
+
+  //item functions
+  itemCreator : function(newItem){
+    var postItem = newItem;
+    curItem = {};
+    $http.post('/item', postItem)
+      .then(function(response){
+        console.log('itemCreator request: ', response);
+      });
+  },
+
+  itemUpdater : function(curItem){
+    var putItem = curItem;
+    curItem = {};
+    $http.put('/item', putItem)
+      .then(function(response){
+        console.log('itemUpdater response: ', response);
+      });
+  },
+
+  itemDeleter : function(curItem){
+    var delItem = curItem;
+    curItem = {};
+    $http.delete('/item', delItem)
+      .then(function(response){
+        console.log('itemDeleter response: ', response);
+      });
+  },
+  //item functions
+
+  //sight functions
+  sightCreator : function(newSight){
+    var postSight = newSight;
+    curSight = {};
+    $http.post('/sight', postSight)
+      .then(function(response){
+        console.log('sightCreator request: ', response);
+      });
+  },
+
+  sightUpdater : function(curSight){
+    var putSight = curSight;
+    curSight = {};
+    $http.put('/sight', putSight)
+      .then(function(response){
+        console.log('sightUpdater response: ', response);
+      });
+  },
+
+  sightDeleter : function(curSight){
+    var delSight= curSight;
+    curSight = {};
+    $http.delete('/sight', delSight)
+      .then(function(response){
+        console.log('sightDeleter response: ', response);
+      });
+  },
+
   //
   // var locationsObject = {
   //   curLocs : [],

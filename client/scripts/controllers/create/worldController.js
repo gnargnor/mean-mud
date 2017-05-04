@@ -18,7 +18,7 @@ app.controller('WorldController', ['CreatorService', '$scope', '$http', '$locati
   //
   // create.displayDesc = CreatorService.displayDesc;
   //
-  // create.messageObject = CreatorService.messageObject;
+  create.messageObject = CreatorService.messageObject;
   //
   // create.addLocation = function(){
   //   $location.path('/newLoc');
