@@ -14,6 +14,7 @@ var register = require('./routes/register');
 var world = require('./routes/world');
 var location = require('./routes/location');
 var sight = require('./routes/sight');
+var exit = require('./routes/exit');
 var item = require('./routes/item');
 
 // Body parser middleware
@@ -41,6 +42,7 @@ app.use(passport.session());
 
 // Routes
 app.use('/item', item);
+app.use('/exit', exit);
 app.use('/sight', sight);
 app.use('/location', location);
 app.use('/world', world);

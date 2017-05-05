@@ -1,21 +1,23 @@
-app.factory('CreatorService', ['$http', '$location', function($http, $location){
+app.factory('CreatorService', ['UserService', '$http', '$location', function(UserService, $http, $location){
 
-  return {//message object
-  messageObject : {
+  //message object
+
+  var messageObject = {
     message: ''
-  },
+  };
 
   //angular vessels
-  worldsObject : {
+  var worldsObject = {
     curWorlds : [],
     curWorld : {
       worldName : '',
       worldDesc : '',
-      author : ''
+      author : '',
+      _locations : []
     }
-  },
+  };
 
-  locationsObject : {
+  var locationsObject = {
     curLocs : [],
     curLoc : {
       locName :'',
@@ -23,39 +25,121 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
       locShortDesc : '',
       locNotes : ''
     }
-  },
+  };
 
-  itemsObject : {
+  var itemsObject = {
     curItems : [],
     curItem : {
       itemName : '',
       itemDesc : '',
       itemNotes : ''
     }
-  },
+  };
 
-  sightsObject : {
+  var sightsObject = {
     curSights : [{keyword: 'crap', sightDesc: 'dirty crap', isImportant: false}],
     curSight : {
       keyword : '',
       sightDesc : '',
       isImportant : ''
     }
-  },
+  };
+
+  var exitsObject = {
+    curExits : [{exitDir: 'north', exitDesc: 'You see a door', open: false, unlocked: true}],
+    curExit : {
+      exitDir : '',
+      exitDesc : '',
+      open : true,
+      unlocked : true
+    }
+  };//angular vessels
+
+  //getters
+  var worldGetter = function(){
+    $http.get('/world')
+      .then(function(response){
+        var worldsReturned = response.data;
+        worldsObject.curWorlds = [];
+        for (i=0;i<worldsReturned.length;i++){
+          worldsObject.curWorlds.push(worldsReturned[i]);
+        }
+        console.log('worldGetter pushed to curWorlds: ', worldsObject.curWorlds);
+      });
+  };
+
+  // var locationGetter = function(){
+  //   $http.get('/location')
+  //     .then(function(response){
+  //       var locationsReturned = response.data;
+  //       locationsObject.curLocs = [];
+  //       for (i=0;i<locationsReturned.length; i++){
+  //         locationsObject.curLocs.push(locationsReturned[i]);
+  //         worldsObject.curWorld._locations.push(locationsReturned[i]._id);
+  //       }
+  //       console.log('locationGetter: ', locationsObject.curLocs);
+  //     });
+  // };
+
+  var locGetter = function(curWorld){
+    if (worldsObject.curWorld.worldName === ''){
+      console.log('curWorld not defined in locationGetter');
+    }
+    var params = curWorld;
+    $http({
+      url: '/location/' + worldsObject.curWorld._id,
+      method: 'GET',
+    }).then(function(response){
+      console.log('locGetter found: ', response);
+    });
+  };
+
+  var itemGetter = function(){
+    $http.get('/item')
+      .then(function(response){
+        if (worldsObject.curWorld.worldName === ''){
+          console.log('itemGetter: curWorld not defined');
+          return;
+        }
+        var itemsReturned = response.data;
+        itemsObject.curItems = [];
+        for (i=0;i<itemsReturned.length; i++){
+          itemsObject.curItems.push(itemsReturned[i]);
+          worldsObject.curWorld._items.push(itemsReturned[i]._id);
+        }
+    });
+  };
+
+  return {
+
+  //message object
+  messageObject : messageObject,
+  itemGetter : itemGetter,
+  // locationGetter : locationGetter,
+  worldGetter : worldGetter,
+
+  //angular vessels
+  worldsObject : worldsObject,
+  locationsObject : locationsObject,
+  itemsObject : itemsObject,
+  sightsObject : sightsObject,
+  exitsObject : exitsObject,
 
   //world functions
+
   worldCreator : function(newWorld){
     var postWorld = newWorld;
     newWorld = {};
     $http.post('/world', postWorld)
       .then(function(response){
         console.log('worldCreator request: ', response);
+        worldsObject.curWorlds.push(response.data);
+        worldGetter();
       });
   },
 
   worldUpdater : function(curWorld){
     var putWorld = curWorld;
-    curWorld = {};
     $http.put('/world', putWorld)
       .then(function(response){
         console.log('worldUpdater response: ', response);
@@ -63,22 +147,27 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
   },
 
   worldDeleter : function(curWorld){
-    delWorld = curWorld;
-    $http.delete('/world', delWorld)
+    console.log('world to delete', curWorld);
+    $http.delete('/world', curWorld)
       .then(function(response){
         console.log('worldDeleter response: ', response);
       });
   },
-  //world functions
+
+  worldFiller : function(curWorldId){
+    locGetter(curWorldId);
+    // itemGetter(curWorldId);
+  },//world functions
 
   //location functions
   locationCreator : function(newLoc){
-    var postLoc = newLoc;
-    curLoc = {};
-    $http.post('/location', postLoc)
+    newLoc._world = worldsObject.curWorld._id;
+    console.log('newLoc._world: ', newLoc);
+    $http.post('/location', newLoc)
       .then(function(response){
         console.log('locationCreator request: ', response);
       });
+    locGetter(newLoc._world);
   },
 
   locationUpdater : function(curLoc){
@@ -102,12 +191,12 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
 
   //item functions
   itemCreator : function(newItem){
-    var postItem = newItem;
-    curItem = {};
-    $http.post('/item', postItem)
+    newItem._world = worldsObject.curWorld._id;
+    $http.post('/item', newItem)
       .then(function(response){
         console.log('itemCreator request: ', response);
       });
+    itemGetter();
   },
 
   itemUpdater : function(curItem){
@@ -157,6 +246,55 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
       });
   },
 
+  exitCreator : function(newExit){
+    var postExit = newExit;
+    newExit = {};
+    $http.post('/exit', postExit)
+      .then(function(response){
+        console.log('exitCreator response: ', response);
+      });
+  },
+
+  exitUpdater : function(curExit){
+    var putExit = curExit;
+    newExit = {};
+    $http.put('/exit', putExit)
+      .then(function(response){
+        console.log('exitCreator response: ', response);
+      });
+  },
+
+  exitDeleter : function(curExit){
+    var delExit = curExit;
+    curExit = {};
+    $http.delete('/exit', delExit)
+      .then(function(response){
+        console.log('exitCreator response: ', response);
+      });
+  },
+
+  displayDesc : function(typeOfInput){
+    console.log(typeOfInput);
+    if (typeOfInput.worldName){
+      var world = typeOfInput;
+      worldsObject.curWorld = world;
+    } else if (typeOfInput.locName){
+      var location = typeOfInput;
+      locationsObject.curLoc = location;
+      console.log('displayDesc: ', locationsObject.curLoc);
+    } else if (typeOfInput.itemName){
+      var item = typeOfInput;
+      itemsObject.curItem = item;
+    } else if (typeOfInput.sightDesc){
+      var sight = typeOfInput;
+      sightsObject.curSight = sight;
+    } else if (typeOfInput.exitDesc){
+      var exit = typeOfInput;
+      exitsObject.curExit = exit;
+    } else {
+      messageObject.message = "display error: bad code";
+    }
+  },
   //
   // var locationsObject = {
   //   curLocs : [],
@@ -384,26 +522,7 @@ app.factory('CreatorService', ['$http', '$location', function($http, $location){
   // };
   // //item definitions
   //
-  // var displayDesc = function(typeOfInput){
-  //   console.log(typeOfInput);
-  //   if (typeOfInput.worldName){
-  //     var world = typeOfInput;
-  //     worldsObject.curWorld = world;
-  //   } else if (typeOfInput.locName){
-  //
-  //     var location = typeOfInput;
-  //     locationsObject.curLoc = location;
-  //     console.log('displayDesc: ', locationsObject.curLoc);
-  //   } else if (typeOfInput.itemName){
-  //     var item = typeOfInput;
-  //     itemsObject.curItem = item;
-  //   } else if (typeOfInput.sightDesc){
-  //     var sight = typeOfInput;
-  //     locationsObject.curLoc.curSight = sight;
-  //   } else {
-  //     messageObject.message = "display error: bad code";
-  //   }
-  // };
+
   //
   // var getActiveUniverse = function(){
   //   $http.get('/universe/active')

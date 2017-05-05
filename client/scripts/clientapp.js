@@ -56,7 +56,7 @@ app.config(['$routeProvider', '$locationProvider',
 
 .when('/worldHome', {
       templateUrl: '/views/templates/user/create/worldHome.html',
-      controller: 'WorldController as create',
+      controller: 'WorldController as world',
       resolve: {
         getuser : ['UserService', function(UserService){
           return UserService.getuser();
