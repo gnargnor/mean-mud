@@ -37,36 +37,37 @@ router.post('/', function(req, res){
 });
 
 router.put('/', function(req, res){
-  var worldServer = new World({
+  console.log(req.user._id);
+  var worldServer = {
     worldName: req.body.worldName,
     dateCreated: new Date(),
     worldDesc: req.body.worldDesc,
-    author: req.body.author
-  });
+    _creator: req.user._id
+  };
   console.log(worldServer);
-  World.findById(req.body._id, function(err, curWorld){
+  World.update({'_id' : req.body._id}, worldServer, function(err, curWorld){
     if (err){
       console.log('world update error');
       res.sendStatus(500);
     }
-    curWorld = worldServer;
     console.log(curWorld);
     res.sendStatus(200);
   });
 
 });
-
-router.delete('/', function(req, res){
-  console.log('world delete route hit: ', req.body._id);
-  // var delWorld = req.body._id;
-  // World.findById(req.body._id).remove()
-  //   .exec(function(err, deleted){
-  //     if (err) {
-  //       console.log('World delete error: ', err);
-  //     }
-  //     console.log('World deleted', deleted);
-  //     res.sendStatus(200);
-  //   });
+//THIS WORKS - FOR THE LOVE OF GOD
+router.delete('/:world', function(req, res){
+  console.log('world delete route hit: ', req.params.world);
+  var delWorld = req.params.world;
+  World.deleteOne({'_id' : delWorld})
+    .exec(function(err, deleted){
+      if (err) {
+        console.log('World delete error: ', err);
+        res.sendFile(500);
+      }
+      console.log('World deleted', deleted);
+      res.sendStatus(200);
+    });
 });
 
 module.exports = router;

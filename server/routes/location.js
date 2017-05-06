@@ -10,7 +10,9 @@ router.post('/', function(req, res){
     locName: req.body.locName,
     dateCreated: new Date(),
     locDesc: req.body.locDesc,
-    locShortDesc: req.body.locShortDesc
+    locShortDesc: req.body.locShortDesc,
+    _world: req.body._world,
+    _creator: req.user._id
   });
   console.log('locationServer: ', locationServer);
   locationServer.save(function(err, newWorld){
@@ -24,6 +26,21 @@ router.post('/', function(req, res){
 
 router.put('/', function(req, res){
   console.log('location put route hit: ', req.body);
+  locServer = req.body;
+  Location.findOne({'_id' : req.body._id}, function(err, curLoc){
+    if (err) {
+      console.log('location put err: ', err);
+      res.sendStatus(500);
+    }
+    console.log('curLoc in loc put: ', curLoc);
+    curLoc.locName = locServer.locName || curLoc.locName;
+    curLoc.locDesc = locServer.locDesc || curLoc.locDesc;
+    curLoc.locShortDesc = locServer.locShortdesc || curLoc.locShortDesc;
+    curLoc._inventory = locServer._inventory || curLoc._inventory;
+    curLoc._exits = locServer._exits || curLoc._exits;
+    console.log(curLoc);
+    res.sendStatus(200);
+  });
 });
 
 router.delete('/:locId', function(req, res){

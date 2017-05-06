@@ -8,7 +8,7 @@
       <h4><strong>Worlds: </strong>(click to see description)</h4>
 
         <div ng-repeat="world in worlds.worldsObject.curWorlds">
-            <p><span ng-click="worlds.displayDesc(world); worlds.displayViewForWorld()">{{world.worldName}} </span><span class="glyphicon glyphicon-minus" ng-click="worlds.worldDeleter(world)"></span></p>
+            <p><span ng-click="worlds.displayDesc(world); worlds.displayViewForWorld()">{{world.worldName}} </span><span class="glyphicon glyphicon-minus" ng-click="worlds.worldDeleter(world._id)"></span></p>
         </div>
       <span class="glyphicon glyphicon-plus" ng-click="worlds.addWorld()"></span>
     </div>
@@ -16,7 +16,7 @@
       <div class="col col-lg-8 col-md-8 col-sm-12" id="worldDetail" ng-show="worlds.displayDescViewWorld">
           <h3>{{worlds.worldsObject.curWorld.worldName}}</h3>
           <p>{{worlds.worldsObject.curWorld.worldDesc}}</p>
-          <p ng-show="worlds.worldsObject.curWorld.author">created by: <strong>{{worlds.worldsObject.curWorld.author}}</strong></p>
+          <p ng-show="worlds.worldsObject.curWorld.author">created by: <strong>{{worlds.worldsObject.curWorld.author}} </strong>{{worlds.worldsObject.curWorld.date | date:'shortDate'}}</p>
           <span class="glyphicon glyphicon-pencil" ng-click="worlds.editWorld()" ng-show="worlds.worldsObject.curWorld.worldName"></span>
           <span class="	glyphicon glyphicon-arrow-right" ng-click="worlds.chooseWorld(worlds.worldsObject.curWorld)" ng-show="worlds.worldsObject.curWorld.worldName"></span>
       </div>
@@ -52,7 +52,7 @@
 
     <div ng-show="worlds.addWorldView"><!-- Displays form for adding sight -->
       <h4>Add World:</h4>
-      <form class="form-horizontal" ng-submit="worlds.worldCreator(worlds.worldsObject.curWorld); worlds.displayViewforWorld()">
+      <form class="form-horizontal" ng-submit="worlds.worldCreator(worlds.worldsObject.curWorld); worlds.displayViewForWorld()">
         <div class="form-group">
           <label for="worldName" class="col-sm-2 control-label">World Name:</label>
           <div class="col-sm-10">

@@ -9,7 +9,9 @@ router.post('/', function(req, res){
     itemName : req.body.itemName,
     itemDesc : req.body.itemDesc,
     itemNotes : req.body.itemNotes,
-    dateCreated : new Date()
+    dateCreated : new Date(),
+    _world : req.body._world,
+    _creator : req.user._id
   });
   itemServer.save(function(err, newItem){
     if (err) {

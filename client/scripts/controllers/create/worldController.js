@@ -48,7 +48,7 @@ app.controller('WorldController', ['CreatorService', '$scope', '$http', '$locati
     world.chooseWorld = function(curWorld){
       console.log('choose world');
       world.worldsObject.curWorld = curWorld;
-      world.worldFiller(world.worldsObject.curWorld._id);
+      world.worldFiller(curWorld._id);
       $location.path('/worldHome');
     };
 

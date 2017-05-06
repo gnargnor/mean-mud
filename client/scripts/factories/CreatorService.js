@@ -81,18 +81,24 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
   //     });
   // };
 
-  var locGetter = function(curWorld){
-    if (worldsObject.curWorld.worldName === ''){
+  var locGetter = function(curWorldId){
+    if (worldsObject.curWorld._id === ''){
       console.log('curWorld not defined in locationGetter');
     }
-    var params = curWorld;
+    console.log('curWorld in locGetter ', worldsObject.curWorld._id);
     $http({
-      url: '/location/' + worldsObject.curWorld._id,
+      url: '/location/' + curWorldId,
       method: 'GET',
     }).then(function(response){
-      console.log('locGetter found: ', response);
+      console.log('locGetter response.data: ', response.data);
+      for (i=0;i<locationsReturned.length; i++){
+              locationsObject.curLocs.push(locationsReturned[i]);
+              worldsObject.curWorld._locations.push(locationsReturned[i]._id);
+            }
+            console.log('locGetter pushed: ', locationsObject.curLocs, worldsObject.curWorld._locations);
     });
-  };
+
+};
 
   var itemGetter = function(){
     $http.get('/item')
@@ -145,12 +151,15 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
         console.log('worldUpdater response: ', response);
       });
   },
-
-  worldDeleter : function(curWorld){
-    console.log('world to delete', curWorld);
-    $http.delete('/world', curWorld)
+//THIS WORKS - FOR THE LOVE OF GOD
+  worldDeleter : function(curWorldId){
+    console.log('world to delete', curWorldId);
+    $http({
+      url : '/world/' + curWorldId,
+      method : 'DELETE'})
       .then(function(response){
         console.log('worldDeleter response: ', response);
+        worldGetter();
       });
   },
 
@@ -167,6 +176,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       .then(function(response){
         console.log('locationCreator request: ', response);
       });
+      console.log('locGetter in locCreator: ', newLoc);
     locGetter(newLoc._world);
   },
 
