@@ -37,7 +37,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
   };
 
   var sightsObject = {
-    curSights : [{keyword: 'crap', sightDesc: 'dirty crap', isImportant: false}],
+    curSights : [],
     curSight : {
       keyword : '',
       sightDesc : '',
@@ -46,7 +46,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
   };
 
   var exitsObject = {
-    curExits : [{exitDir: 'north', exitDesc: 'You see a door', open: false, unlocked: true}],
+    curExits : [],
     curExit : {
       exitDir : '',
       exitDesc : '',
@@ -68,52 +68,49 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       });
   };
 
-  // var locationGetter = function(){
-  //   $http.get('/location')
-  //     .then(function(response){
-  //       var locationsReturned = response.data;
-  //       locationsObject.curLocs = [];
-  //       for (i=0;i<locationsReturned.length; i++){
-  //         locationsObject.curLocs.push(locationsReturned[i]);
-  //         worldsObject.curWorld._locations.push(locationsReturned[i]._id);
-  //       }
-  //       console.log('locationGetter: ', locationsObject.curLocs);
-  //     });
-  // };
-
   var locGetter = function(curWorldId){
     if (worldsObject.curWorld._id === ''){
       console.log('curWorld not defined in locationGetter');
+      return;
     }
     console.log('curWorld in locGetter ', worldsObject.curWorld._id);
     $http({
       url: '/location/' + curWorldId,
       method: 'GET',
     }).then(function(response){
-      console.log('locGetter response.data: ', response.data);
+      var locationsReturned = response.data;
+      locationsObject.curLocs = [];
       for (i=0;i<locationsReturned.length; i++){
-              locationsObject.curLocs.push(locationsReturned[i]);
-              worldsObject.curWorld._locations.push(locationsReturned[i]._id);
-            }
-            console.log('locGetter pushed: ', locationsObject.curLocs, worldsObject.curWorld._locations);
+        locationsObject.curLocs.push(locationsReturned[i]);
+      }
+      console.log('locGetter pushed: ', locationsObject.curLocs);
     });
 
 };
 
-  var itemGetter = function(){
-    $http.get('/item')
-      .then(function(response){
-        if (worldsObject.curWorld.worldName === ''){
-          console.log('itemGetter: curWorld not defined');
-          return;
-        }
-        var itemsReturned = response.data;
-        itemsObject.curItems = [];
-        for (i=0;i<itemsReturned.length; i++){
-          itemsObject.curItems.push(itemsReturned[i]);
-          worldsObject.curWorld._items.push(itemsReturned[i]._id);
-        }
+  var itemGetter = function(curWorldId){
+    if (worldsObject.curWorld._id === ''){
+      console.log('curWorld is not defined in itemGetter');
+      return;
+    }
+    console.log('curWorld in itemGetter: ', worldsObject.curWorld._id);
+    $http({
+      url : '/item/' + curWorldId,
+      method: 'GET',
+    }).then(function(response){
+      var itemsReturned = response.data;
+      itemsObject.curItems = [];
+
+      console.log('itemGetter response.data: ', response.data);
+      for (i = 0; i<itemsReturned.length; i++){
+        itemsObject.curItems.push(itemsReturned[i]);
+      }
     });
+  };
+
+  var worldFiller = function(curWorldId){
+    locGetter(curWorldId);
+    itemGetter(curWorldId);
   };
 
   return {
@@ -123,6 +120,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
   itemGetter : itemGetter,
   // locationGetter : locationGetter,
   worldGetter : worldGetter,
+  worldFiller : worldFiller,
 
   //angular vessels
   worldsObject : worldsObject,
@@ -158,15 +156,13 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       url : '/world/' + curWorldId,
       method : 'DELETE'})
       .then(function(response){
+        worldsObject.curWorld = {};
         console.log('worldDeleter response: ', response);
         worldGetter();
       });
   },
 
-  worldFiller : function(curWorldId){
-    locGetter(curWorldId);
-    // itemGetter(curWorldId);
-  },//world functions
+  //world functions
 
   //location functions
   locationCreator : function(newLoc){
@@ -189,12 +185,15 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       });
   },
 
-  locationDeleter : function(curLoc){
-    var delLoc = curLoc;
-    curLoc = {};
-    $http.delete('/location', delLoc)
-      .then(function(response){
-        console.log('locationDeleter: ', response);
+  locationDeleter : function(curLocId){
+    console.log('loc to delete', curLocId);
+    $http({
+      url : '/location/' + curLocId,
+      method : 'DELETE'
+    }).then(function(response){
+        console.log('worldDeleter response: ', response);
+        locationsObject.curLoc = {};
+        worldFiller(worldsObject.curWorld._id);
       });
   },//location functions
 
@@ -206,7 +205,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       .then(function(response){
         console.log('itemCreator request: ', response);
       });
-    itemGetter();
+    itemGetter(worldsObject.curWorld._id);
   },
 
   itemUpdater : function(curItem){
@@ -218,21 +217,23 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       });
   },
 
-  itemDeleter : function(curItem){
-    var delItem = curItem;
-    curItem = {};
-    $http.delete('/item', delItem)
-      .then(function(response){
+  itemDeleter : function(curItemId){
+    console.log('item to delete', curItemId);
+    $http({
+      url : '/item/' + curItemId,
+      method : 'DELETE'
+    }).then(function(response){
         console.log('itemDeleter response: ', response);
+        itemsObject.curItem = {};
+        worldFiller(worldsObject.curWorld._id);
       });
   },
   //item functions
 
   //sight functions
   sightCreator : function(newSight){
-    var postSight = newSight;
-    curSight = {};
-    $http.post('/sight', postSight)
+    newSight._location = locationsObject.curLoc._id;
+    $http.post('/sight', newSight)
       .then(function(response){
         console.log('sightCreator request: ', response);
       });
@@ -247,19 +248,21 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       });
   },
 
-  sightDeleter : function(curSight){
-    var delSight= curSight;
-    curSight = {};
-    $http.delete('/sight', delSight)
-      .then(function(response){
+  sightDeleter : function(curSightId){
+    console.log('sight to delete', curSightId);
+    $http({
+      url : '/sight/' + curSightId,
+      method : 'DELETE'
+    }).then(function(response){
         console.log('sightDeleter response: ', response);
+        sightsObject.curSight = {};
+        worldFiller(worldsObject.curWorld._id);
       });
   },
 
   exitCreator : function(newExit){
-    var postExit = newExit;
-    newExit = {};
-    $http.post('/exit', postExit)
+    newExit._location = locationsObject.curLoc._id;
+    $http.post('/exit', newExit)
       .then(function(response){
         console.log('exitCreator response: ', response);
       });

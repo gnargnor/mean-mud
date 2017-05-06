@@ -24,17 +24,47 @@ router.post('/', function(req, res){
 
 router.put('/', function(req, res){
   console.log('item put route hit: ', req.body);
+  itemServer = req.body;
+  Item.findOne({'_id' : req.body._id}, function(err, curItem){
+    if (err) {
+      console.log('item put err: ', err);
+      res.sendStatus(500);
+    }
+    console.log('curItem in item put: ', curItem);
+    curItem.itemName = itemServer.itemName || curItem.itemName;
+    curItem.itemDesc = itemServer.itemDesc || curItem.itemDesc;
+    curItem.save(function(err, savedItem){
+      if (err){
+        console.log('error in item put: ', err);
+        res.sendStatus(500);
+      }
+      console.log('updated item: ', savedItem);
+      res.sendStatus(200);
+    });
+  });
 });
 
-router.delete('/', function(req, res){
-  console.log('item delete route hit: ', req.body);
+router.delete('/:itemId', function(req, res){
+  console.log('item delete route hit: ', req.params.itemId);
+  var delItem = req.params.itemId;
+  Item.deleteOne({'_id' : delItem})
+    .exec(function(err, deletedItem){
+      if (err) {
+        console.log('Item delete error: ', err);
+        res.sendStatus(500);
+      }
+      console.log('Item deleted: ', deletedItem);
+      res.sendStatus(200);
+    });
 });
 
-router.get('/', function(req, res){
-  console.log('item get route hit');
-  Item.find({}, function(err, allItems){
+router.get('/:worldId', function(req, res){
+  console.log('item get route hit ', req.params.worldId);
+  var world_id = req.params.worldId;
+  Item.find({'_world': world_id}, function(err, allItems){
     if (err) {
       console.log('item get error: ', err);
+      res.sendStatus(500);
     }
     console.log('allItems: ', allItems);
     res.send(allItems);

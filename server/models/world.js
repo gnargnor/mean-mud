@@ -9,6 +9,7 @@ var WorldSchema = new Schema({
   _locations : [{type: Schema.ObjectId, ref: 'Location'}],
   _items : [{type: Schema.ObjectId, ref: 'Item'}],
   dateCreated : {type: Date, default: Date.now},
+  author : {type: String},
   worldName : {type: String, required: true},
   worldDesc : {type: String, required: true},
   gameCount : {type: Number},

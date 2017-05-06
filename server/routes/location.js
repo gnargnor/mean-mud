@@ -38,18 +38,34 @@ router.put('/', function(req, res){
     curLoc.locShortDesc = locServer.locShortdesc || curLoc.locShortDesc;
     curLoc._inventory = locServer._inventory || curLoc._inventory;
     curLoc._exits = locServer._exits || curLoc._exits;
-    console.log(curLoc);
-    res.sendStatus(200);
+    curLoc.save(function(err, savedLoc){
+      if (err){
+        console.log('error in loc put: ', err);
+        res.sendStatus(500);
+      }
+      console.log('updated location: ', savedLoc);
+      res.sendStatus(200);
+    });
   });
 });
 
 router.delete('/:locId', function(req, res){
   console.log('location delete route hit: ', req.params.locId);
+  var delLoc = req.params.locId;
+  Location.deleteOne({'_id' : delLoc})
+    .exec(function(err, deletedLoc){
+      if (err) {
+        console.log('Location delete error: ', err);
+        res.sendStatus(500);
+      }
+      console.log('Location deleted: ', deletedLoc);
+      res.sendStatus(200);
+    });
 });
 
-router.get('/:world', function(req, res){
-  console.log('location get route hit ', req.params.world);
-  var world_id = req.params.world;
+router.get('/:worldId', function(req, res){
+  console.log('location get route hit ', req.params.worldId);
+  var world_id = req.params.worldId;
   Location.find({'_world': world_id}, function(err, allLocations){
     if (err){
       console.log('location get error: ', err);

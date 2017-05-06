@@ -11,7 +11,7 @@
         <div class="col col-lg-4 col-md-4 col-sm-12" id="locNames">
           <h4><strong>Locations: </strong>(click to edit)</h4>
             <div ng-repeat="loc in world.locationsObject.curLocs">
-                <p ng-click="world.displayDesc(loc); world.displayViewForLoc()">{{loc.locName}}</p>
+                <p><span ng-click="world.displayDesc(loc); world.displayViewForLoc()">{{loc.locName}} </span><span class="glyphicon glyphicon-minus" ng-click="world.locationDeleter(loc._id)"></span></p>
             </div>
           <span class="glyphicon glyphicon-plus" ng-click="world.addLocation(); world.displayViewForLoc"></span>
         </div>
@@ -27,7 +27,7 @@
 
           <div ng-show="world.editLocationView"><!-- Displays focused sight for editing -->
           <h4>Edit Location:</h4>
-          <form class="form-horizontal" ng-submit="world.locationUpdater({locName: 'dumpy poe'}); world.displayViewForLoc()">
+          <form class="form-horizontal" ng-submit="world.locationUpdater(world.locationsObject.curLoc); world.displayViewForLoc()">
 
             <div class="form-group">
               <label for="locName" class="col-sm-2 control-label">Location Name:</label>
@@ -103,7 +103,7 @@
         <div class="col col-lg-4 col-md-4 col-sm-12" id="itemNames">
           <h4><strong>Items: </strong>(click to edit)</h4>
             <div ng-repeat="item in world.itemsObject.curItems">
-                <p ng-click="world.displayDesc(item); world.displayViewForItem()">{{item.itemName}}</p>
+                <p><span ng-click="world.displayDesc(item); world.displayViewForItem()">{{item.itemName}} </span><span class="glyphicon glyphicon-minus" ng-click="world.itemDeleter(item._id)"></span></p>
             </div>
             <span class="glyphicon glyphicon-plus" ng-click="world.addItem()"></span>
         </div>
@@ -119,7 +119,7 @@
 
           <div ng-show="world.editItemView"><!-- Displays focused sight for editing -->
           <h4>Edit Item:</h4>
-          <form class="form-horizontal" ng-submit="world.itemUpdater({itemName: 'dumpy poe'}); world.displayViewForItem()">
+          <form class="form-horizontal" ng-submit="world.itemUpdater(world.itemsObject.curItem); world.displayViewForItem()">
 
             <div class="form-group">
               <label for="itemName" class="col-sm-2 control-label">Item Name:</label>
