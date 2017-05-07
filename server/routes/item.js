@@ -18,7 +18,7 @@ router.post('/', function(req, res){
       console.log('item save error: ', err);
     }
     console.log('item saved: ', newItem);
-    res.send(200);
+    res.send(newItem);
   });
 });
 
@@ -39,7 +39,7 @@ router.put('/', function(req, res){
         res.sendStatus(500);
       }
       console.log('updated item: ', savedItem);
-      res.sendStatus(200);
+      res.send(savedItem);
     });
   });
 });

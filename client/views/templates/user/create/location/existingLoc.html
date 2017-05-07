@@ -1,24 +1,28 @@
 <div ng-include="'views/partials/usernav.html'"></div>
 <h1 class="lead alert alert-danger" role="alert" ng-if="location.messageObject.message != ''">{{location.messageObject.message}}</h1>
 <div class="container">
-<!-- display all current room properties -->
-<div class="row">
-  <h2>{{location.locationsObject.curLoc.locName}}</h2>
+  <!-- display all current room properties -->
+  <div class="row">
+    <h2>{{location.locationsObject.curLoc.locName}}</h2>
     <p>{{location.locationsObject.curLoc.locShortDesc}}</p>
     <p>{{location.locationsObject.curLoc.locDesc}}</p>
-</div>
+  </div>
 
-<!-- SIGHTS -->
+  <!-- SIGHTS -->
   <div class="row" id="sights">
-    <div class="col col-lg-4 col-md-4 col-sm-12" id="sightNames"> <!-- Displays Location Sights from sightsObject.curSights -->
+    <div class="col col-lg-4 col-md-4 col-sm-12" id="sightNames">
+      <!-- Displays Location Sights from sightsObject.curSights -->
       <h4>Sights (click to edit): </h4>
-      <div ng-repeat="sight in location.sightsObject.curSights"><!-- Click to focus -->
+      <div ng-repeat="sight in location.sightsObject.curSights">
+        <!-- Click to focus -->
         <p ng-click="location.displayDesc(sight); location.displayViewForSight()">{{sight.sightName}} <span class="glyphicon glyphicon-minus" ng-click="location.sightDeleter(sight._id)"></span></p>
       </div>
       <span class="glyphicon glyphicon-plus" ng-click="location.newSight()"></span>
-    </div><!-- End Exit Repeat-->
+    </div>
+    <!-- End Exit Repeat-->
 
-    <div class="col col-lg-8 col-md-8 col-sm-12"><!-- Displays Focused Sight -->
+    <div class="col col-lg-8 col-md-8 col-sm-12">
+      <!-- Displays Focused Sight -->
       <div class="col col-lg-8 col-md-8 col-sm-12" id="sightDetail" ng-show="location.displayDescViewSight">
         <h3>{{location.sightsObject.curSight.sightName}}</h3>
         <p>{{location.sightsObject.curSight.sightDesc}}</p>
@@ -59,7 +63,7 @@
 
   <div ng-show="location.addSightView"><!-- Displays form for adding sight -->
     <h4>Add Sight:</h4>
-    <form class="form-horizontal" ng-submit="location.sightCreator(location.sightsObject.curSight); location.displayViewforSight()">
+    <form class="form-horizontal" ng-submit="location.sightCreator(location.sightsObject.curSight); location.displayViewForSight()">
       <div class="form-group">
         <label for="sightName" class="col-sm-2 control-label">Keyword:</label>
         <div class="col-sm-10">
@@ -101,9 +105,11 @@
         <p ng-click="location.displayDesc(exit); location.displayViewForExit()">{{exit.exitDir}} <span class="glyphicon glyphicon-minus" ng-click="location.exitDeleter(exit._id)"></span></p>
       </div>
       <span class="glyphicon glyphicon-plus" ng-click="location.newExit()"></span>
-    </div><!-- End Exit Repeat -->
+    </div>
+    <!-- End Exit Repeat -->
 
-    <div class="col col-lg-8 col-md-8 col-sm-12"><!-- Displays Description of Focused Exit-->
+    <div class="col col-lg-8 col-md-8 col-sm-12">
+      <!-- Displays Description of Focused Exit-->
       <div class="col col-lg-8 col-md-8 col-sm-12" id="exitDetail" ng-show="location.displayDescViewExit">
         <h3>{{location.exitsObject.curExit.exitDir}}</h3>
         <p>{{location.exitsObject.curExit.exitDesc}}</p>
@@ -113,12 +119,26 @@
       <div ng-show="location.editExitView"><!-- Displays Focused Exit for Editing -->
       <h4>Edit Exit:</h4>
       <form class="form-horizontal" ng-submit="location.exitUpdater(location.exitsObject.curExit); location.displayViewForExit()">
+
         <div class="form-group">
+          <label for="exitDir" class="col-sm-2 control-label"> Select exit direction:: </label><br>
+          <div class="col-sm-10">
+            <select name="exitDirSelect" id="exitDirSelect" ng-model="location.exitsObject.curExit.exitDir">
+              <option value="{{location.exitsObject.curExit.exitDir}}">Current ({{location.exitsObject.curExit.exitDir}})</option>
+              <option value="north">North</option>
+              <option value="east">East</option>
+              <option value="south">South</option>
+              <option value="west">West</option>
+            </select><br>
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
           <label for="exitDir" class="col-sm-2 control-label">Direction:</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="exitDir" placeholder="{{location.exitsObject.curExit.exitDir}}" ng-model="location.exitsObject.curExit.exitDir">
           </div>
-        </div>
+        </div> -->
         <div class="form-group">
           <label for="exitDesc" class="col-sm-2 control-label">Exit Description:</label>
           <div class="col-sm-10">
@@ -154,12 +174,26 @@
     <div ng-show="location.addExitView"><!-- Displays Form for Adding Exit -->
       <h4>Add Exit:</h4>
       <form class="form-horizontal" ng-submit="location.exitCreator(location.exitsObject.curExit); location.displayViewForExit()">
+
         <div class="form-group">
+          <label for="exitDir" class="col-sm-2 control-label"> Select exit direction:: </label><br>
+          <div class="col-sm-10">
+            <select name="exitDirSelect" id="exitDirSelect" ng-model="location.exitsObject.curExit.exitDir">
+              <option value="">---Please select---</option> <!-- not selected / blank option -->
+              <option value="north">North</option>
+              <option value="east">East</option>
+              <option value="south">South</option>
+              <option value="west">West</option>
+            </select><br>
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
           <label for="exitDir" class="col-sm-2 control-label">Direction:</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="exitDir" placeholder="exitDir" ng-model="location.exitsObject.curExit.exitDir">
           </div>
-        </div>
+        </div> -->
         <div class="form-group">
           <label for="exitDesc" class="col-sm-2 control-label">Exit Description:</label>
           <div class="col-sm-10">

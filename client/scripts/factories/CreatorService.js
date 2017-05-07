@@ -220,6 +220,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       .then(function(response){
         console.log('locationCreator request: ', response);
         locGetter(newLoc._world);
+        locationsObject.curLoc = response.data;
       });
   },
 
@@ -229,7 +230,8 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.put('/location', putLoc)
       .then(function(response){
         console.log('locationUpdater response: ', response);
-        locGetter(newLoc._world);
+        locGetter(worldsObject.curWorld._id);
+        locationsObject.curLoc = response.data;
       });
   },
 
@@ -253,6 +255,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       .then(function(response){
         console.log('itemCreator request: ', response);
         itemGetter(worldsObject.curWorld._id);
+        itemsObject.curItem = response.data;
       });
 
   },
@@ -264,6 +267,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       .then(function(response){
         console.log('itemUpdater response: ', response);
         itemGetter(worldsObject.curWorld._id);
+        itemsObject.curItem = response.data;
       });
 
   },
@@ -283,12 +287,12 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
 
   //sight functions
   sightCreator : function(newSight){
-    console.log('curLoc in sightCreator: ', locationsObject.curLoc);
     newSight._location = locationsObject.curLoc._id;
     $http.post('/sight', newSight)
       .then(function(response){
         console.log('sightCreator request: ', response);
         sightGetter(locationsObject.curLoc._id);
+        sightsObject.curSight = response.data;
       });
 
   },
@@ -300,6 +304,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       .then(function(response){
         console.log('sightUpdater response: ', response);
         sightGetter(locationsObject.curLoc._id);
+        sightsObject.curSight = response.data;
       });
 
   },
@@ -322,6 +327,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       .then(function(response){
         console.log('exitCreator response: ', response);
         exitGetter(locationsObject.curLoc._id);
+        exitsObject.curExit = response.data;
       });
 
   },
@@ -334,6 +340,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       .then(function(response){
         console.log('exitCreator response: ', response);
         exitGetter(locationsObject.curLoc._id);
+        exitsObject.curExit = response.data;
       });
 
   },

@@ -20,7 +20,7 @@ router.post('/', function(req, res){
       res.sendStatus(500);
     }
     console.log('exit saved: ', savedExit);
-    res.sendStatus(200);
+    res.send(savedExit);
   });
 });
 
@@ -43,7 +43,7 @@ router.put('/', function(req, res){
         res.sendStatus(500);
       }
       console.log('exit updated: ', updatedExit);
-      res.sendStatus(200);
+      res.send(updatedExit);
     });
   });
 });

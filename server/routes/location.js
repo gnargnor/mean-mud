@@ -15,18 +15,19 @@ router.post('/', function(req, res){
     _creator: req.user._id
   });
   console.log('locationServer: ', locationServer);
-  locationServer.save(function(err, newWorld){
+  locationServer.save(function(err, newLoc){
     if (err) {
       console.log('save error: ', err);
     }
-    console.log('saved: ', newWorld);
-    res.send(newWorld);
+    console.log('saved: ', newLoc);
+    res.send(newLoc);
   });
 });
 
 router.put('/', function(req, res){
   console.log('location put route hit: ', req.body);
   locServer = req.body;
+  console.log(locServer._id);
   Location.findOne({'_id' : req.body._id}, function(err, curLoc){
     if (err) {
       console.log('location put err: ', err);
@@ -36,6 +37,7 @@ router.put('/', function(req, res){
     curLoc.locName = locServer.locName || curLoc.locName;
     curLoc.locDesc = locServer.locDesc || curLoc.locDesc;
     curLoc.locShortDesc = locServer.locShortdesc || curLoc.locShortDesc;
+    curLoc.locNotes = locServer.locNotes || curLoc.locNotes;
     curLoc._inventory = locServer._inventory || curLoc._inventory;
     curLoc._exits = locServer._exits || curLoc._exits;
     curLoc.save(function(err, savedLoc){
@@ -44,7 +46,7 @@ router.put('/', function(req, res){
         res.sendStatus(500);
       }
       console.log('updated location: ', savedLoc);
-      res.sendStatus(200);
+      res.send(savedLoc);
     });
   });
 });

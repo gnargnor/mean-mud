@@ -41,7 +41,7 @@ router.post('/', function(req, res){
 router.put('/', function(req, res){
   console.log('world put route hit: ', req.body);
   var worldServer = req.body;
-  console.log(worldServer);
+  console.log(worldServer._id);
   World.findOne({'_id' : req.body._id}, function(err, curWorld){
     if (err){
       console.log('world update error: ', err);
@@ -57,7 +57,7 @@ router.put('/', function(req, res){
         res.sendStatus(500);
       }
       console.log('updated world: ', savedWorld);
-      res.sendStatus(200);
+      res.send(savedWorld);
     });
   });
 });

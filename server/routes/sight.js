@@ -19,7 +19,7 @@ router.post('/', function(req, res){
       res.sendStatus(500);
     }
     console.log('sight saved: ', savedSight);
-    res.sendStatus(200);
+    res.send(savedSight);
   });
 });
 
@@ -41,7 +41,7 @@ router.put('/', function(req, res){
         res.sendStatus(500);
       }
       console.log('sight updated: ', updatedSight);
-      res.sendStatus(200);
+      res.send(updatedSight);
     });
   });
 });
