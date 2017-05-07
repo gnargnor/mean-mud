@@ -10,6 +10,9 @@ app.controller('LocationController', ['CreatorService', '$scope', '$http', '$loc
   location.locationCreator = CreatorService.locationCreator;
   location.locationUpdater = CreatorService.locationUpdater;
   location.locationDeleter = CreatorService.locationDeleter;
+  location.locationFiller = CreatorService.locationFiller;
+
+  location.locationFiller();
 
   //SIGHTS
   location.sightsObject = CreatorService.sightsObject;

@@ -108,9 +108,55 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     });
   };
 
+  var sightGetter = function(curLocId){
+    if (curLocId === ''){
+      console.log('curLoc is not defined in sightGetter');
+      return;
+    }
+    console.log('curLoc in sightGetter: ', curLocId);
+    $http({
+      url : '/sight/' + curLocId,
+      method: 'GET',
+    }).then(function(response){
+      var sightsReturned = response.data;
+      sightsObject.curSights = [];
+      console.log('sightGetter response.data: ', response.data);
+      for (i = 0; i<sightsReturned.length; i++){
+        sightsObject.curSights.push(sightsReturned[i]);
+      }
+      console.log('sightsReturned: ', sightsReturned);
+    });
+  };
+
+  var exitGetter = function(curLocId){
+    if (curLocId === ''){
+      console.log('curLoc is not defined in exitGetter');
+      return;
+    }
+    console.log('curLoc in exitGetter: ', curLocId);
+    $http({
+      url : '/exit/' + curLocId,
+      method: 'GET',
+    }).then(function(response){
+      var exitsReturned = response.data;
+      exitsObject.curExits = [];
+      console.log('exitGetter response.data: ', response.data);
+      for (i = 0; i<exitsReturned.length; i++){
+        exitsObject.curExits.push(exitsReturned[i]);
+      }
+      console.log('exitsReturned: ', exitsReturned);
+    });
+  };
+
   var worldFiller = function(curWorldId){
     locGetter(curWorldId);
     itemGetter(curWorldId);
+  };
+
+  var locationFiller = function(curLocId) {
+
+    sightGetter(curLocId);
+    exitGetter(curLocId);
   };
 
   return {
@@ -121,6 +167,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
   // locationGetter : locationGetter,
   worldGetter : worldGetter,
   worldFiller : worldFiller,
+  locationFiller : locationFiller,
 
   //angular vessels
   worldsObject : worldsObject,

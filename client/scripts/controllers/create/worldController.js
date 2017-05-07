@@ -62,6 +62,7 @@ app.controller('WorldController', ['CreatorService', '$scope', '$http', '$locati
   world.locationUpdater = CreatorService.locationUpdater;
   world.locationDeleter = CreatorService.locationDeleter;
   world.locationGetter = CreatorService.locationGetter;
+  world.locationFiller = CreatorService.locationFiller;
 
   world.addLocationView = false;
   world.editLocationView = false;
@@ -93,9 +94,9 @@ app.controller('WorldController', ['CreatorService', '$scope', '$http', '$locati
     };
 
     world.chooseLocation = function(loc) {
-      console.log('curWorld at chooseLocation: ', world.worldsObject.curWorld);
+      console.log('curLoc at chooseLocation: ', world.locationsObject.curLoc);
       world.locationsObject.curLoc = loc;
-      // locationFiller();
+      world.locationFiller();
       $location.path('/existingLoc');
     };
     //END LOCATIONS
@@ -121,10 +122,10 @@ app.controller('WorldController', ['CreatorService', '$scope', '$http', '$locati
       };
 
       world.displayViewForItem = function(){
-        if (world.editItemView || location.addItemView){
+        console.log('displayViewForItem Hit');
           world.editItemView = false;
           world.addItemView = false;
-        }
+          console.log('display addItemView: ', world.addItemView);
         world.displayDescViewItem = true;
       };
 
