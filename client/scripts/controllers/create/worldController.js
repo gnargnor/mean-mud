@@ -96,7 +96,7 @@ app.controller('WorldController', ['CreatorService', '$scope', '$http', '$locati
     world.chooseLocation = function(loc) {
       console.log('curLoc at chooseLocation: ', world.locationsObject.curLoc);
       world.locationsObject.curLoc = loc;
-      world.locationFiller();
+      world.locationFiller(world.locationsObject.curLoc._id);
       $location.path('/existingLoc');
     };
     //END LOCATIONS

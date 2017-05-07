@@ -194,6 +194,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.put('/world', putWorld)
       .then(function(response){
         console.log('worldUpdater response: ', response);
+        worldGetter();
       });
   },
 //THIS WORKS - FOR THE LOVE OF GOD
@@ -218,9 +219,8 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.post('/location', newLoc)
       .then(function(response){
         console.log('locationCreator request: ', response);
+        locGetter(newLoc._world);
       });
-      console.log('locGetter in locCreator: ', newLoc);
-    locGetter(newLoc._world);
   },
 
   locationUpdater : function(curLoc){
@@ -229,6 +229,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.put('/location', putLoc)
       .then(function(response){
         console.log('locationUpdater response: ', response);
+        locGetter(newLoc._world);
       });
   },
 
@@ -251,8 +252,9 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.post('/item', newItem)
       .then(function(response){
         console.log('itemCreator request: ', response);
+        itemGetter(worldsObject.curWorld._id);
       });
-    itemGetter(worldsObject.curWorld._id);
+
   },
 
   itemUpdater : function(curItem){
@@ -261,7 +263,9 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.put('/item', putItem)
       .then(function(response){
         console.log('itemUpdater response: ', response);
+        itemGetter(worldsObject.curWorld._id);
       });
+
   },
 
   itemDeleter : function(curItemId){
@@ -279,11 +283,14 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
 
   //sight functions
   sightCreator : function(newSight){
+    console.log('curLoc in sightCreator: ', locationsObject.curLoc);
     newSight._location = locationsObject.curLoc._id;
     $http.post('/sight', newSight)
       .then(function(response){
         console.log('sightCreator request: ', response);
+        sightGetter(locationsObject.curLoc._id);
       });
+
   },
 
   sightUpdater : function(curSight){
@@ -292,7 +299,9 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.put('/sight', putSight)
       .then(function(response){
         console.log('sightUpdater response: ', response);
+        sightGetter(locationsObject.curLoc._id);
       });
+
   },
 
   sightDeleter : function(curSightId){
@@ -303,7 +312,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     }).then(function(response){
         console.log('sightDeleter response: ', response);
         sightsObject.curSight = {};
-        worldFiller(worldsObject.curWorld._id);
+        sightGetter(locationsObject.curLoc._id);
       });
   },
 
@@ -312,25 +321,34 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.post('/exit', newExit)
       .then(function(response){
         console.log('exitCreator response: ', response);
+        exitGetter(locationsObject.curLoc._id);
       });
+
   },
 
   exitUpdater : function(curExit){
+    console.log('curExit in exitUpdater: ', curExit._id);
     var putExit = curExit;
     newExit = {};
     $http.put('/exit', putExit)
       .then(function(response){
         console.log('exitCreator response: ', response);
+        exitGetter(locationsObject.curLoc._id);
       });
+
   },
 
-  exitDeleter : function(curExit){
-    var delExit = curExit;
-    curExit = {};
-    $http.delete('/exit', delExit)
-      .then(function(response){
-        console.log('exitCreator response: ', response);
+  exitDeleter : function(curExitId){
+    console.log('exit to delete', curExitId);
+    $http({
+      url : '/exit/' + curExitId,
+      method : 'DELETE'
+    }).then(function(response){
+        console.log('exitDeleter response: ', response);
+        exitsObject.curExit = {};
+        exitGetter(locationsObject.curLoc._id);
       });
+
   },
 
   displayDesc : function(typeOfInput){
@@ -341,7 +359,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     } else if (typeOfInput.locName){
       var location = typeOfInput;
       locationsObject.curLoc = location;
-      console.log('displayDesc: ', locationsObject.curLoc);
+      console.log('displayDesc: ', location);
     } else if (typeOfInput.itemName){
       var item = typeOfInput;
       itemsObject.curItem = item;

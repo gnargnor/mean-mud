@@ -13,25 +13,25 @@
     <div class="col col-lg-4 col-md-4 col-sm-12" id="sightNames"> <!-- Displays Location Sights from sightsObject.curSights -->
       <h4>Sights (click to edit): </h4>
       <div ng-repeat="sight in location.sightsObject.curSights"><!-- Click to focus -->
-        <p ng-click="location.displayDesc(sight); location.displayViewForSight()">{{sight.keyword}}<span class="glyphicon glyphicon-minus" ng-click="location.sightDeleter(sight)"></span></p>
+        <p ng-click="location.displayDesc(sight); location.displayViewForSight()">{{sight.sightName}} <span class="glyphicon glyphicon-minus" ng-click="location.sightDeleter(sight._id)"></span></p>
       </div>
       <span class="glyphicon glyphicon-plus" ng-click="location.newSight()"></span>
     </div><!-- End Exit Repeat-->
 
     <div class="col col-lg-8 col-md-8 col-sm-12"><!-- Displays Focused Sight -->
       <div class="col col-lg-8 col-md-8 col-sm-12" id="sightDetail" ng-show="location.displayDescViewSight">
-        <h3>{{location.sightsObject.curSight.keyword}}</h3>
+        <h3>{{location.sightsObject.curSight.sightName}}</h3>
         <p>{{location.sightsObject.curSight.sightDesc}}</p>
-        <span class="glyphicon glyphicon-pencil" ng-click="location.editSight()" ng-show="location.displayDescViewSight">
+        <span class="glyphicon glyphicon-pencil" ng-click="location.editSight()" ng-show="location.sightsObject.curSight._id">
       </div><!-- End Display Focused Sight -->
 
       <div ng-show="location.editSightView"><!-- Displays focused sight for editing -->
       <h4>Edit Sight:</h4>
-      <form class="form-horizontal" ng-submit="location.sightUpdater({sightName: 'dumpy poe'}); location.displayViewForSight()">
+      <form class="form-horizontal" ng-submit="location.sightUpdater(location.sightsObject.curSight); location.displayViewForSight()">
         <div class="form-group">
-          <label for="keyword" class="col-sm-2 control-label">Keyword:</label>
+          <label for="sightName" class="col-sm-2 control-label">Keyword:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="keyword" placeholder="{{location.sightsObject.curSight.keyword}}" ng-model="location.sightsObject.curSight.keyword">
+            <input type="text" class="form-control" id="sightName" placeholder="{{location.sightsObject.curSight.sightName}}" ng-model="location.sightsObject.curSight.sightName">
           </div>
         </div>
         <div class="form-group">
@@ -61,9 +61,9 @@
     <h4>Add Sight:</h4>
     <form class="form-horizontal" ng-submit="location.sightCreator(location.sightsObject.curSight); location.displayViewforSight()">
       <div class="form-group">
-        <label for="keyword" class="col-sm-2 control-label">Keyword:</label>
+        <label for="sightName" class="col-sm-2 control-label">Keyword:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="keyword" placeholder="keyword" ng-model="location.sightsObject.curSight.keyword">
+          <input type="text" class="form-control" id="sightName" placeholder="sightName" ng-model="location.sightsObject.curSight.sightName">
         </div>
       </div>
       <div class="form-group">
@@ -98,7 +98,7 @@
     <div class="col col-lg-4 col-md-4 col-sm-12"><!-- Displays Exits from ExitsObject.curExits -->
       <h4>Exits (click to edit): </h4>
       <div ng-repeat="exit in location.exitsObject.curExits"><!-- Click to Focus -->
-        <p ng-click="location.displayDesc(exit); location.displayViewForExit()">{{exit.exitDir}}<span class="glyphicon glyphicon-minus" ng-click="location.exitDeleter(exit)"></span></p>
+        <p ng-click="location.displayDesc(exit); location.displayViewForExit()">{{exit.exitDir}} <span class="glyphicon glyphicon-minus" ng-click="location.exitDeleter(exit._id)"></span></p>
       </div>
       <span class="glyphicon glyphicon-plus" ng-click="location.newExit()"></span>
     </div><!-- End Exit Repeat -->
@@ -107,7 +107,7 @@
       <div class="col col-lg-8 col-md-8 col-sm-12" id="exitDetail" ng-show="location.displayDescViewExit">
         <h3>{{location.exitsObject.curExit.exitDir}}</h3>
         <p>{{location.exitsObject.curExit.exitDesc}}</p>
-        <span class="glyphicon glyphicon-pencil" ng-click="location.editExit()" ng-show="location.displayDescViewExit">
+        <span class="glyphicon glyphicon-pencil" ng-click="location.editExit()" ng-show="location.exitsObject.curExit._id">
       </div><!-- End Display Focused Exit -->
 
       <div ng-show="location.editExitView"><!-- Displays Focused Exit for Editing -->
@@ -179,7 +179,7 @@
           <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
               <label>
-                <input type="checkbox" ng-model="location.exitsObject.curExit.locked"> Leave checked if this exit is unlocked
+                <input type="checkbox" ng-model="location.exitsObject.curExit.unlocked"> Leave checked if this exit is unlocked
               </label>
             </div>
           </div>

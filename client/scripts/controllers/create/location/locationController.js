@@ -12,7 +12,8 @@ app.controller('LocationController', ['CreatorService', '$scope', '$http', '$loc
   location.locationDeleter = CreatorService.locationDeleter;
   location.locationFiller = CreatorService.locationFiller;
 
-  location.locationFiller();
+  // location.locationFiller(location.locationsObject.curLoc._id);
+  console.log('locationController curLoc: ', location.locationsObject.curLoc);
 
   //SIGHTS
   location.sightsObject = CreatorService.sightsObject;

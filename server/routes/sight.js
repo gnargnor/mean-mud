@@ -8,7 +8,7 @@ router.post('/', function(req, res){
   var sightServer = new Sight({
     _location : req.body._location,
     _creator : req.user._id,
-    dateCreated : {type: Date, default: Date.now},
+    dateCreated : new Date(),
     sightName : req.body.sightName,
     sightDesc : req.body.sightDesc,
     isImportant : req.body.isImportant
@@ -48,8 +48,8 @@ router.put('/', function(req, res){
 
 router.delete('/:sightId', function(req, res){
   console.log('sight delete route hit: ', req.params.sightId);
-  var delSight = req.params.sightId;
-  Sight.deleteOne({'_id' : delSight})
+  var delSightId = req.params.sightId;
+  Sight.deleteOne({'_id' : delSightId})
     .exec(function(err, deletedSight){
       if (err){
         console.log('error deleting sight: ', err);
