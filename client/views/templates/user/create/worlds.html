@@ -1,10 +1,10 @@
 <div ng-include="'views/partials/usernav.html'"></div>
 <!-- <h1 class="lead alert alert-danger" role="alert" ng-if="worlds.messageObject.message != ''">{{worlds.messageObject.message}}</h1> -->
-<div class="container">
+<div class="container viewbg">
   <h2>Your Worlds:</h2>
 
   <div class="row" id="worlds">
-    <div class="col col-lg-4 col-md-4 col-sm-12" id="worldNames">
+    <div class="col col-lg-4 col-md-4 col-sm-12 leftSide" id="worldNames">
       <h4><strong>Worlds: </strong>(click to see description)</h4>
 
         <div ng-repeat="world in worlds.worldsObject.curWorlds">
@@ -13,7 +13,7 @@
       <span class="glyphicon glyphicon-plus" ng-click="worlds.addWorld()"></span>
     </div>
     <div class="col col-lg-8 col-md-8 col-sm-12">
-      <div class="col col-lg-8 col-md-8 col-sm-12" id="worldDetail" ng-show="worlds.displayDescViewWorld">
+      <div class="col col-lg-8 col-md-8 col-sm-12 leftSide" id="worldDetail" ng-show="worlds.displayDescViewWorld">
           <h3>{{worlds.worldsObject.curWorld.worldName}}</h3>
           <p>{{worlds.worldsObject.curWorld.worldDesc}}</p>
           <p ng-show="worlds.worldsObject.curWorld.author">created by: <strong>{{worlds.worldsObject.curWorld.author}} </strong>{{worlds.worldsObject.curWorld.date | date:'shortDate'}}</p>
@@ -21,7 +21,7 @@
           <span class="	glyphicon glyphicon-arrow-right" ng-click="worlds.chooseWorld(worlds.worldsObject.curWorld)" ng-show="worlds.worldsObject.curWorld.worldName"></span>
       </div>
 
-      <div ng-show="worlds.editWorldView"><!-- Displays focused sight for editing -->
+      <div ng-show="worlds.editWorldView" class="leftSide"><!-- Displays focused sight for editing -->
       <h4>Edit World:</h4>
       <form class="form-horizontal" ng-submit="worlds.worldUpdater(worlds.worldsObject.curWorld); worlds.displayViewForWorld()">
         <div class="form-group">
@@ -45,7 +45,7 @@
       </form>
     </div><!-- End edit Sight -->
 
-    <div ng-show="worlds.addWorldView"><!-- Displays form for adding sight -->
+    <div ng-show="worlds.addWorldView" class="leftSide"><!-- Displays form for adding sight -->
       <h4>Add World:</h4>
       <form class="form-horizontal" ng-submit="worlds.worldCreator(worlds.worldsObject.curWorld); worlds.displayViewForWorld()">
 

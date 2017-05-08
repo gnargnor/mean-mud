@@ -11,12 +11,12 @@ module.exports = function(grunt){
       }
     },
     copy: {
-      // scripts: {
-      //   expand: true,
-      //   cwd: 'client/scripts/',
-      //   src: ['*.js', '**/*.js'],
-      //   dest: 'server/public/scripts/'
-      // },
+      bgimage: {
+        expand: true,
+        cwd: 'client/bgimage/',
+        src: ['*.jpg'],
+        dest: 'server/public/bgimage/'
+      },
       html: {
         expand: true,
         cwd: 'client/views',

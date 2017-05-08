@@ -1,5 +1,23 @@
 body {
   font-family: monospace;
+  background-image: url('/bgimage/cpubackground.jpg');
+  color: white;
+}
+
+.viewbg {
+  max-width: 1200px;
+  border: 2px double white;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.leftSide {
+  background-color: rgba(38, 63, 127, 0.6);
+  border: 2px double rgb(43, 81, 127);
+  border-radius: 8px;
+  padding: 25px;
+  margin: 5px auto 5px;
+  /*width: 85%;*/
 }
 .instructions .container h1 {
     font-size: 24px;
