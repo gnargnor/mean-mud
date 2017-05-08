@@ -73,4 +73,17 @@ router.get('/:locId', function(req, res){
   });
 });
 
+router.get('/look/:lookTarget', function(req, res){
+  console.log('sight get route hit: ', req.params.lookTarget);
+  var target = req.params.lookTarget;
+  Sight.find({'sightName' : target}, function(err, lookSight){
+    if (err) {
+      console.log('sight get error: ', err);
+      res.sendStatus(500);
+    }
+    console.log('lookSight: ', lookSight);
+    res.send(lookSight);
+  });
+});
+
 module.exports = router;

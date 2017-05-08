@@ -78,4 +78,31 @@ router.get('/:worldId', function(req, res){
   });
 });
 
+router.get('/', function(req, res){
+  console.log('location get route hit ', req.params.worldId);
+  var world_id = req.params.worldId;
+  Location.find({}, function(err, allLocations){
+    if (err){
+      console.log('location get error: ', err);
+      res.sendStatus(500);
+    }
+    console.log('location get: ', allLocations);
+    res.send(allLocations);
+  });
+});
+
+router.get('/goto/:locName', function(req, res){
+  console.log('location get route hit ', req.params.locName.toString());
+  var loc_name = req.params.locName.toString();
+  Location.findOne({'locName' : loc_name}, function(err, gotoLoc){
+    if (err){
+      console.log('location get error: ', err);
+      res.sendStatus(500);
+    }
+    console.log('location get: ', gotoLoc);
+    res.send(gotoLoc);
+  });
+});
+
+
 module.exports = router;

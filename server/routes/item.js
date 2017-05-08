@@ -58,6 +58,17 @@ router.delete('/:itemId', function(req, res){
     });
 });
 
+router.get('/', function(req, res){
+  Item.find({}, function(err, allItems){
+    if (err) {
+      console.log('item get error: ', err);
+      res.sendStatus(500);
+    }
+    console.log('allItems: ', allItems);
+    res.send(allItems);
+  });
+});
+
 router.get('/:worldId', function(req, res){
   console.log('item get route hit ', req.params.worldId);
   var world_id = req.params.worldId;

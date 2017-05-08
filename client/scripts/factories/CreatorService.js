@@ -184,7 +184,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     $http.post('/world', postWorld)
       .then(function(response){
         console.log('worldCreator request: ', response);
-        worldsObject.curWorlds.push(response.data);
+        worldsObject.curWorld = response.data;
         worldGetter();
       });
   },

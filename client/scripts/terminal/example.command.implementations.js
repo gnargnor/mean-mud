@@ -3,23 +3,114 @@
 .config(['commandBrokerProvider', function (commandBrokerProvider) {
 
   //test interpretter input
-  commandBrokerProvider.appendCommandHandler({
-      command: 'hack',
-      description: ['returns description'],
-      handle: function (session, party) {
-          //this defines a as an array with each word
-          var b = party;
-          var a = ['successful', 'hack', ':', b];
+  // commandBrokerProvider.appendCommandHandler({
+  //     command: 'hack',
+  //     description: ['returns description'],
+  //     handle: function (session, party) {
+  //         //this defines a as an array with each word
+  //         var b = party;
+  //         var a = ['successful', 'hack', ':', b];
+  //
+  //         console.log();
+  //
+  //         session.output.push({ output: true, text: [a.join(' ')], breakLine: true });
+  //         // a = testObject.bingbong;
+  //         // b = testObject.dingdong;
+  //         // session.output.push({ output: true, text: [b.join(' ')], breakLine: true });
+  //
+  //     }
+  // });
 
-          console.log();
+  var lookCommandHandler = function () {
+    var me = {};
+    var _http = null;
+    var _scope = null;
+    me.command = 'look';
+    me.description = ['look <target> returns a description of the target if available'];
+    // Inject dependencies
+    me.init = ['$http', '$rootScope', function ($http, $rootScope) {
+        _http = $http;
+        _scope = $rootScope;
+    }];
+    me.handle = function (session, targetSight) {
+      // var whatList = ['What', 'would', 'you', 'like', 'to', 'list?'];
+          _http.get('/sight/look/' + targetSight).then(function(response){
+              var lookResponse  =  response.data;
+              var lookResponseArray = [];
+              for(var i = 0; i < response.data.length; i++) {
+                lookResponseArray.push(response.data[i].sightDesc);
+              }
+              console.log(lookResponseArray);
+              session.output.push({ output: true, text: lookResponseArray, breakLine: true });
+              // Broadcast an apply
+              _scope.$broadcast('terminal-apply', {});
+            });
+  };
+    return me;
+  };
+  commandBrokerProvider.appendCommandHandler(lookCommandHandler());
 
-          session.output.push({ output: true, text: [a.join(' ')], breakLine: true });
-          // a = testObject.bingbong;
-          // b = testObject.dingdong;
-          // session.output.push({ output: true, text: [b.join(' ')], breakLine: true });
+  var gotoCommandHandler = function () {
+    var me = {};
+    var _http = null;
+    var _scope = null;
+    me.command = 'goto';
+    me.description = ['goto <target> will bring you to the target location if it exists', 'this is a test'];
+    // Inject dependencies
+    me.init = ['$http', '$rootScope', function ($http, $rootScope) {
+        _http = $http;
+        _scope = $rootScope;
+    }];
+    me.handle = function (session, targetLoc) {
+      // var whatList = ['What', 'would', 'you', 'like', 'to', 'list?'];
+          _http.get('/location/goto/' + targetLoc).then(function(response){
+              gotoResponseTitle = response.data.locName;
+              gotoResponseDesc = response.data.locDesc;
+              console.log('gotoResponse: ', gotoResponseTitle, gotoResponseDesc);
+              var gotoResponseArray = [];
+              gotoResponseArray.push(gotoResponseTitle);
+              gotoResponseArray.push(gotoResponseDesc);
+              console.log('goto callback: ', gotoResponseArray);
+              session.output.push({ output: true, text: gotoResponseArray, breakLine: true });
+              // Broadcast an apply
+              _scope.$broadcast('terminal-apply', {});
+            });
+  };
+    return me;
+  };
+  commandBrokerProvider.appendCommandHandler(gotoCommandHandler());
 
-      }
-  });
+  var playCommandHandler = function () {
+    var me = {};
+    var _http = null;
+    var _scope = null;
+    me.command = 'play';
+    me.description = ['(play <target world>) starts a new game.  Use quotes if the title contains more than one word.'];
+    // Inject dependencies
+    me.init = ['$http', '$rootScope', function ($http, $rootScope) {
+        _http = $http;
+        _scope = $rootScope;
+    }];
+    me.handle = function (session, targetWorld) {
+      // var whatList = ['What', 'would', 'you', 'like', 'to', 'list?'];
+          _http.post('/game/newGame/' + targetWorld).then(function(response){
+            console.log('callback for play hit');
+              var gameResponse =  response.data;
+              var gameResponseArray = [];
+              for(var i = 0; i < response.data.length; i++) {
+                gameResponseArray.push(response.data[i].sightDesc);
+              }
+              console.log('play response: ', gameResponseArray);
+              session.output.push({ output: true, text: gameResponseArray, breakLine: true });
+              // Broadcast an apply
+              _scope.$broadcast('terminal-apply', {});
+            });
+  };
+    return me;
+  };
+  commandBrokerProvider.appendCommandHandler(playCommandHandler());
+
+
 
     commandBrokerProvider.appendCommandHandler({
         command: 'version',
@@ -37,7 +128,7 @@
         }
     });
 
-    var worldsCommandHandler = function () {
+    var listCommandHandler = function () {
       var me = {};
       var _http = null;
       var _scope = null;
@@ -49,18 +140,18 @@
           _scope = $rootScope;
       }];
       me.handle = function (session, target) {
-        var whatList = ['What', 'would', 'you', 'like', 'to', 'list?'];
+        var whatList = ['What would you like to list?'];
         switch(target){
 
           case 'worlds':
-            _http.get('/create').then(function(response){
+            _http.get('/world').then(function(response){
                 var worlds =  response.data;
                 var worldNames = [];
                 for(var i = 0; i < response.data.length; i++) {
                   worldNames.push(response.data[i].worldName);
                 }
                 console.log(worldNames);
-                session.output.push({ output: true, text: [worldNames.join(' ')], breakLine: true });
+                session.output.push({ output: true, text: [worldNames.join(' - ')], breakLine: true });
                 // Broadcast an apply
                 _scope.$broadcast('terminal-apply', {});
               });
@@ -73,11 +164,24 @@
                   locNames.push(response.data[i].locName);
                 }
                 console.log();
-                session.output.push({ output: true, text: [locNames.join(' ')], breakLine: true });
+                session.output.push({ output: true, text: [locNames.join(' - ')], breakLine: true });
                 // Broadcast an apply
                 _scope.$broadcast('terminal-apply', {});
               });
               break;
+          case 'items':
+          _http.get('/item').then(function(response){
+              var items =  response.data;
+              var itemNames = [];
+              for(var i = 0; i < response.data.length; i++) {
+                itemNames.push(response.data[i].itemName);
+              }
+              console.log();
+              session.output.push({ output: true, text: [itemNames.join(' - ')], breakLine: true });
+              // Broadcast an apply
+              _scope.$broadcast('terminal-apply', {});
+            });
+            break;
           default:
             session.output.push({ output: true, text: [whatList.join(' ')], breakLine: true });
             // Broadcast an apply
@@ -86,7 +190,7 @@
     };
       return me;
     };
-    commandBrokerProvider.appendCommandHandler(worldsCommandHandler());
+    commandBrokerProvider.appendCommandHandler(listCommandHandler());
 
     commandBrokerProvider.appendCommandHandler({
         command: 'echo',
@@ -174,7 +278,7 @@
     // - LK google analytics related things.  Not worth the headache, not relevant to me.
     // var suCommandHandler = function () {
     //     var me = {};
-        // var ga = null;
+    //     var ga = null;
     //     me.command= 'su';
     //     me.description = ['Changes the  user identity.', "Syntax: su <userName>", "Example: su vtortola"];
     //     me.init = ['$ga', function ($ga) {
