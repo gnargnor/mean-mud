@@ -21,6 +21,14 @@
   //     }
   // });
 
+  var underlineLoc = function(locName){
+    var line = '';
+    for (i=0; i<locName.length; i++){
+      line += '-';
+    }
+    return line;
+  };
+
   var lookCommandHandler = function () {
     var me = {};
     var _http = null;
@@ -64,11 +72,12 @@
     me.handle = function (session, targetLoc) {
       // var whatList = ['What', 'would', 'you', 'like', 'to', 'list?'];
           _http.get('/location/goto/' + targetLoc).then(function(response){
-              gotoResponseTitle = response.data.locName;
-              gotoResponseDesc = response.data.locDesc;
+              var gotoResponseTitle = response.data.locName;
+              var gotoResponseDesc = response.data.locDesc;
               console.log('gotoResponse: ', gotoResponseTitle, gotoResponseDesc);
               var gotoResponseArray = [];
               gotoResponseArray.push(gotoResponseTitle);
+              gotoResponseArray.push(underlineLoc(gotoResponseTitle));
               gotoResponseArray.push(gotoResponseDesc);
               console.log('goto callback: ', gotoResponseArray);
               session.output.push({ output: true, text: gotoResponseArray, breakLine: true });

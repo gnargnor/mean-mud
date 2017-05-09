@@ -1,15 +1,17 @@
 <div ng-include="'views/partials/usernav.html'"></div>
 <h1 class="lead alert alert-danger" role="alert" ng-if="world.messageObject.message != ''">{{world.messageObject.message}}</h1>
 <div class="container viewbg">
+  <div class="viewfg">
   <!-- Display World Name and Description -->
-<div class="row">
-  <h2>{{world.worldsObject.curWorld.worldName}}</h2>
-    <p>{{world.worldsObject.curWorld.worldDesc}}</p>
+<div class="titlebox row">
+  <h2 class="titleh2">{{world.worldsObject.curWorld.worldName}}</h2>
+    <p class="titlep">{{world.worldsObject.curWorld.worldDesc}}</p>
 </div>
+<hr>
 
     <div class="row" id="locations">
-        <div class="col col-lg-4 col-md-4 col-sm-12" id="locNames">
-          <h4><strong>Locations: </strong>(click to edit)</h4>
+        <div class="col col-lg-4 col-md-4 col-sm-12 leftSide" id="locNames">
+          <h4><strong>Locations: </strong>(click to edit)</h4><hr>
             <div ng-repeat="loc in world.locationsObject.curLocs">
                 <p><span ng-click="world.displayDesc(loc); world.displayViewForLoc()">{{loc.locName}} </span><span class="glyphicon glyphicon-minus" ng-click="world.locationDeleter(loc._id)"></span></p>
             </div>
@@ -17,7 +19,7 @@
         </div>
 
         <div class="col col-lg-8 col-md-8 col-sm-12">
-          <div class="col col-lg-8 col-md-8 col-sm-12" id="locDetail" ng-show="world.displayDescViewLoc">
+          <div class="col col-lg-8 col-md-8 col-sm-12 leftSide" id="locDetail" ng-show="world.displayDescViewLoc">
               <h3>{{world.locationsObject.curLoc.locName}}</h3>
               <p>{{world.locationsObject.curLoc.locDesc}}</p>
               <p>{{world.locationsObject.curLoc.locNotes}}</p>
@@ -25,8 +27,8 @@
               <span class="	glyphicon glyphicon-arrow-right" ng-click="world.chooseLocation(world.locationsObject.curLoc)" ng-show="world.locationsObject.curLoc.locName"></span>
           </div>
 
-          <div ng-show="world.editLocationView"><!-- Displays focused sight for editing -->
-          <h4>Edit Location:</h4>
+          <div class="leftSide" ng-show="world.editLocationView"><!-- Displays focused sight for editing -->
+          <h4>Edit Location:</h4><hr>
           <form class="form-horizontal" ng-submit="world.locationUpdater(world.locationsObject.curLoc); world.displayViewForLoc()">
 
             <div class="form-group">
@@ -59,8 +61,8 @@
           </form>
         </div><!-- End edit Location -->
 
-        <div ng-show="world.addLocationView"><!-- Displays form for adding location -->
-          <h4>Add Location:</h4>
+        <div class="leftSide" ng-show="world.addLocationView"><!-- Displays form for adding location -->
+          <h4>Add Location:</h4><hr>
           <form class="form-horizontal" ng-submit="world.locationCreator(world.locationsObject.curLoc); world.displayViewForLoc()">
 
             <div class="form-group">
@@ -95,13 +97,13 @@
         </div>
       </div><!-- End Add Location -->
 
-    <hr>
+
 
 
 
     <div class="row" id="items">
-        <div class="col col-lg-4 col-md-4 col-sm-12" id="itemNames">
-          <h4><strong>Items: </strong>(click to edit)</h4>
+        <div class="col col-lg-4 col-md-4 col-sm-12 leftSide" id="itemNames">
+          <h4><strong>Items: </strong>(click to edit)</h4><hr>
             <div ng-repeat="item in world.itemsObject.curItems">
                 <p><span ng-click="world.displayDesc(item); world.displayViewForItem()">{{item.itemName}} </span><span class="glyphicon glyphicon-minus" ng-click="world.itemDeleter(item._id)"></span></p>
             </div>
@@ -109,7 +111,7 @@
         </div>
 
         <div class="col col-lg-8 col-md-8 col-sm-12">
-          <div class="col col-lg-8 col-md-8 col-sm-12" id="itemDetail" ng-show="world.displayDescViewItem">
+          <div class="col col-lg-8 col-md-8 col-sm-12 leftSide" id="itemDetail" ng-show="world.displayDescViewItem">
               <h3 ng-click="world.editItem(world.itemsObject.curItem)">{{world.itemsObject.curItem.itemName}}</h3>
               <p ng-click="world.editItem(world.itemsObject.curItem)">{{world.itemsObject.curItem.itemDesc}}</p>
               <p ng-click="world.editItem(world.itemsObject.curItem)">{{world.itemsObject.curItem.itemNotes}}</p>
@@ -117,8 +119,8 @@
               <span class="	glyphicon glyphicon-arrow-right" ng-click="world.chooseItem(worlds.itemsObject.curItem)" ng-show="world.itemsObject.curItem.itemName"></span>
           </div>
 
-          <div ng-show="world.editItemView"><!-- Displays focused sight for editing -->
-          <h4>Edit Item:</h4>
+          <div class="leftSide" ng-show="world.editItemView"><!-- Displays focused sight for editing -->
+          <h4>Edit Item:</h4><hr>
           <form class="form-horizontal" ng-submit="world.itemUpdater(world.itemsObject.curItem); world.displayViewForItem()">
 
             <div class="form-group">
@@ -151,8 +153,8 @@
           </form>
         </div><!-- End edit Item -->
 
-        <div ng-show="world.addItemView"><!-- Displays form for adding location -->
-          <h4>Add Item:</h4>
+        <div class="leftSide" ng-show="world.addItemView"><!-- Displays form for adding location -->
+          <h4>Add Item:</h4><hr>
           <form class="form-horizontal" ng-submit="world.itemCreator(world.itemsObject.curItem); world.displayViewForItem()">
 
             <div class="form-group">

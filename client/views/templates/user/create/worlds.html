@@ -1,15 +1,17 @@
 <div ng-include="'views/partials/usernav.html'"></div>
 <!-- <h1 class="lead alert alert-danger" role="alert" ng-if="worlds.messageObject.message != ''">{{worlds.messageObject.message}}</h1> -->
 <div class="container viewbg">
-  <h2>Your Worlds:</h2>
+  <div class="container viewfg">
+  <h2 class="titleh1">Your Worlds:</h2>
 
   <div class="row" id="worlds">
     <div class="col col-lg-4 col-md-4 col-sm-12 leftSide" id="worldNames">
-      <h4><strong>Worlds: </strong>(click to see description)</h4>
+      <h4><strong>Worlds: </strong>(click to see description)</h4><hr>
 
         <div ng-repeat="world in worlds.worldsObject.curWorlds">
             <p><span ng-click="worlds.displayDesc(world); worlds.displayViewForWorld()">{{world.worldName}} </span><span class="glyphicon glyphicon-minus" ng-click="worlds.worldDeleter(world._id)"></span></p>
         </div>
+        <hr>
       <span class="glyphicon glyphicon-plus" ng-click="worlds.addWorld()"></span>
     </div>
     <div class="col col-lg-8 col-md-8 col-sm-12">
@@ -70,6 +72,7 @@
         </div>
 
       </form>
+    </div>
     </div>
   </div>
 </div>

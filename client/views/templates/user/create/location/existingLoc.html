@@ -1,16 +1,16 @@
 <div ng-include="'views/partials/usernav.html'"></div>
 <h1 class="lead alert alert-danger" role="alert" ng-if="location.messageObject.message != ''">{{location.messageObject.message}}</h1>
 <div class="container viewbg">
+  <div class="viewfg">
   <!-- display all current room properties -->
   <div class="row">
-    <h2>{{location.locationsObject.curLoc.locName}}</h2>
-    <p>{{location.locationsObject.curLoc.locShortDesc}}</p>
-    <p>{{location.locationsObject.curLoc.locDesc}}</p>
+    <h2 class="titleh2">{{location.locationsObject.curLoc.locName}}</h2>
+    <p ng-show="location.locationsObject.curLoc.locDesc" class="titlep">{{location.locationsObject.curLoc.locDesc}}</p>
   </div>
 
   <!-- SIGHTS -->
   <div class="row" id="sights">
-    <div class="col col-lg-4 col-md-4 col-sm-12" id="sightNames">
+    <div class="col col-lg-4 col-md-4 col-sm-12 leftSide" id="sightNames">
       <!-- Displays Location Sights from sightsObject.curSights -->
       <h4>Sights (click to edit): </h4>
       <div ng-repeat="sight in location.sightsObject.curSights">
@@ -23,13 +23,13 @@
 
     <div class="col col-lg-8 col-md-8 col-sm-12">
       <!-- Displays Focused Sight -->
-      <div class="col col-lg-8 col-md-8 col-sm-12" id="sightDetail" ng-show="location.displayDescViewSight">
+      <div class="col col-lg-8 col-md-8 col-sm-12 leftSide" id="sightDetail" ng-show="location.displayDescViewSight">
         <h3>{{location.sightsObject.curSight.sightName}}</h3>
         <p>{{location.sightsObject.curSight.sightDesc}}</p>
         <span class="glyphicon glyphicon-pencil" ng-click="location.editSight()" ng-show="location.sightsObject.curSight._id">
       </div><!-- End Display Focused Sight -->
 
-      <div ng-show="location.editSightView"><!-- Displays focused sight for editing -->
+      <div class="leftSide" ng-show="location.editSightView"><!-- Displays focused sight for editing -->
       <h4>Edit Sight:</h4>
       <form class="form-horizontal" ng-submit="location.sightUpdater(location.sightsObject.curSight); location.displayViewForSight()">
         <div class="form-group">
@@ -61,8 +61,8 @@
       </form>
     </div><!-- End edit Sight -->
 
-  <div ng-show="location.addSightView"><!-- Displays form for adding sight -->
-    <h4>Add Sight:</h4>
+  <div class="leftSide" ng-show="location.addSightView"><!-- Displays form for adding sight -->
+    <h4>Add Sight:</h4><hr>
     <form class="form-horizontal" ng-submit="location.sightCreator(location.sightsObject.curSight); location.displayViewForSight()">
       <div class="form-group">
         <label for="sightName" class="col-sm-2 control-label">Keyword:</label>
@@ -99,8 +99,8 @@
 
   <!-- EXITS -->
   <div class="row">
-    <div class="col col-lg-4 col-md-4 col-sm-12"><!-- Displays Exits from ExitsObject.curExits -->
-      <h4>Exits (click to edit): </h4>
+    <div class="col col-lg-4 col-md-4 col-sm-12 leftSide"><!-- Displays Exits from ExitsObject.curExits -->
+      <h4>Exits (click to edit): </h4><hr>
       <div ng-repeat="exit in location.exitsObject.curExits"><!-- Click to Focus -->
         <p ng-click="location.displayDesc(exit); location.displayViewForExit()">{{exit.exitDir}} <span class="glyphicon glyphicon-minus" ng-click="location.exitDeleter(exit._id)"></span></p>
       </div>
@@ -110,14 +110,14 @@
 
     <div class="col col-lg-8 col-md-8 col-sm-12">
       <!-- Displays Description of Focused Exit-->
-      <div class="col col-lg-8 col-md-8 col-sm-12" id="exitDetail" ng-show="location.displayDescViewExit">
+      <div class="col col-lg-8 col-md-8 col-sm-12 leftSide" id="exitDetail" ng-show="location.displayDescViewExit">
         <h3>{{location.exitsObject.curExit.exitDir}}</h3>
         <p>{{location.exitsObject.curExit.exitDesc}}</p>
         <span class="glyphicon glyphicon-pencil" ng-click="location.editExit()" ng-show="location.exitsObject.curExit._id">
       </div><!-- End Display Focused Exit -->
 
-      <div ng-show="location.editExitView"><!-- Displays Focused Exit for Editing -->
-      <h4>Edit Exit:</h4>
+      <div class="leftSide" ng-show="location.editExitView"><!-- Displays Focused Exit for Editing -->
+      <h4>Edit Exit:</h4><hr>
       <form class="form-horizontal" ng-submit="location.exitUpdater(location.exitsObject.curExit); location.displayViewForExit()">
 
         <div class="form-group">
@@ -133,18 +133,21 @@
           </div>
         </div>
 
-        <!-- <div class="form-group">
-          <label for="exitDir" class="col-sm-2 control-label">Direction:</label>
+        <div class="form-group">
+          <label for="exitDest" class="col-sm-2 control-label"> Select exit destination: </label><br>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="exitDir" placeholder="{{location.exitsObject.curExit.exitDir}}" ng-model="location.exitsObject.curExit.exitDir">
+            <select name="exitDestSelect" id="exitDestSelect" ng-model="location.exitsObject.curExit.exitDest" ng-options="loc.locName for loc in location.locationsObject.curLocs">
+            </select><br>
           </div>
-        </div> -->
+        </div>
+
         <div class="form-group">
           <label for="exitDesc" class="col-sm-2 control-label">Exit Description:</label>
           <div class="col-sm-10">
             <input type="textarea" class="form-control" id="response" placeholder="{{location.exitsObject.curExit.exitDesc}}" ng-model="location.exitsObject.curExit.exitDesc">
           </div>
         </div>
+
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
@@ -154,6 +157,7 @@
             </div>
           </div>
         </div>
+
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
@@ -163,6 +167,9 @@
             </div>
           </div>
         </div>
+
+
+
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default">Update</button>
@@ -171,8 +178,8 @@
       </form>
     </div><!-- End Edit Exit -->
 
-    <div ng-show="location.addExitView"><!-- Displays Form for Adding Exit -->
-      <h4>Add Exit:</h4>
+    <div class="leftSide" ng-show="location.addExitView"><!-- Displays Form for Adding Exit -->
+      <h4>Add Exit:</h4><hr>
       <form class="form-horizontal" ng-submit="location.exitCreator(location.exitsObject.curExit); location.displayViewForExit()">
 
         <div class="form-group">
@@ -226,6 +233,8 @@
       </form>
     </div>
   </div>
+</div>
+</div>
 <!-- populate a list of current location objects -->
 <!-- populate a list of current location characters -->
 <!-- populate a list of current location eventListeners -->

@@ -1,6 +1,8 @@
 <div ng-include="'views/partials/usernav.html'"></div>
+<div class="terminalbg container">
+  <div class="terminalfg container">
 <section class="console-section">
-    <section class="container">
+    <!-- <section class="container centerme"> -->
         <!-- LK - removed for integration -->
         <!-- <section class="head">
             <h1>ng-terminal-emulator</h1>
@@ -11,13 +13,13 @@
             </a>
         </section> -->
         <!-- LK - allows users to choose a vintage or modern theme to the terminal console -->
-        <div class="console-options">
+        <!-- <div class="console-options">
             <label><input type="radio" ng-model="theme" name="theme" value="vintage">Vintage</label>
             <label><input type="radio" ng-model="theme" name="theme" value="modern">Modern</label>
-        </div>
+        </div> -->
         <div ng-show="theme == 'vintage'">
             <terminal terminal-class="vintage-terminal" terminal-config="vintage">
-                <p class="click-me">Click terminal window to begin.</p>
+                <!-- <p class="click-me">Click terminal window to begin.</p> -->
             </terminal>
         </div>
         <div ng-show="theme == 'modern'">
@@ -27,5 +29,7 @@
         </div>
         <!-- <a class="unit-tests" href="tests" ng-click="unitTests()">Unit tests</a> -->
 
-    </section>
+    <!-- </section> -->
 </section>
+</div>
+</div>

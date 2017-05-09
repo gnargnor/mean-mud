@@ -4,20 +4,142 @@ body {
   color: white;
 }
 
+text, password, textarea {
+  color:black;
+}
+
+a {
+   color: white
+}
+
 .viewbg {
   max-width: 1200px;
+  height: 100%;
   border: 2px double white;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.35);
+  padding: 5px;
+  margin: 5px auto;
+}
+
+.viewfg {
+  border: 2px double white;
+  border-radius: 4px;
+  background-color: rgba(35, 97, 255, 0.6);
+  padding: 10px 20px;
+  margin: 3px auto;
+  /*text-align: center;*/
+  width: 98%
+}
+
+.terminalbg {
+  max-width: 1200px;
+  height: 100%;
+  border: 2px double white;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.35);
+  padding: 5px;
+  margin: 5px auto;
+}
+
+.terminalfg {
+  border: 2px double white;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  margin: 3px auto;
+  text-align: center;
+  width: 98%
+}
+
+.titleh1 {
+  background-color: rgba(38, 63, 127, 0.75);
+  border: 2px double rgb(43, 81, 127);
+  border-radius: 8px;
+  margin: 0px auto;
+  width: 50%;
+  text-align: center;
+}
+
+.titleh2 {
+  background-color: rgba(38, 63, 127, 0.75);
+  border: 2px double rgb(43, 81, 127);
+  border-radius: 8px;
+  margin: 0px auto;
+  width: 50%;
+  text-align: center;
+}
+
+.titlep {
+  background-color: rgba(38, 63, 127, 0.75);
+  border: 2px double rgb(43, 81, 127);
+  border-radius: 8px;
+  margin: 0px auto;
+  width: 40%;
+  text-align: center;
+}
+
+
+
+.welcome {
+  background-color: rgba(38, 63, 127, 0.6);
+  border: 2px double rgb(43, 81, 127);
+  border-radius: 8px;
+
+  margin: 5px auto 5px;
+  width: 85%;
+  text-align: center;
+}
+
+.logoutbtn {
+  text-align: center;
+  margin: 0px auto
+}
+
+.loginContainer {
+
+}
+input, button, select, textarea {
+    color: black;
+}
+
+.loginForm {
+  background-color: rgba(38, 63, 127, 0.6);
+  border: 2px double rgb(43, 81, 127);
+  border-radius: 8px;
+  padding: 5px;
+  margin: 5px auto 5px;
+}
+
+.loginForm text password {
+  color: black
+}
+
+.loginbg {
+  max-width: 324px;
+  border: 2px double white;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.35);
+  margin: 10px auto;
+}
+
+.loginfg {
+  max-width: 310px;
+  border: 2px double white;
+  border-radius: 4px;
+  background-color: rgba(35, 97, 255, 0.5);
+  padding: 5px;
+  margin: 3px auto;
+  text-align: center;
+
 }
 
 .leftSide {
   background-color: rgba(38, 63, 127, 0.6);
   border: 2px double rgb(43, 81, 127);
   border-radius: 8px;
-  padding: 25px;
+  padding: 5px;
   margin: 5px auto 5px;
-  /*width: 85%;*/
 }
 .instructions .container h1 {
     font-size: 24px;
@@ -63,6 +185,7 @@ body {
 }
 
 .terminal-line{
+  color: white;
     margin:0;
     padding:0;
     white-space:pre-wrap;
@@ -72,8 +195,8 @@ body {
 }
 .terminal {
     background-color:#000;
-    height: 500px;
-    /*width: 800px;*/
+    height: 650px;
+    width: 1000px;
     margin: 0 auto;
     color: #F6F6FF;
     font-family: monospace;
@@ -81,8 +204,30 @@ body {
     overflow-y:hidden;
     font-size: 12px;
     position:relative;
-    padding:10px;
+    padding:25px;
+    text-align: left;
 }
+
+.centerme {
+  text-align: center
+}
+
+
+
+.console-section {
+    margin:0px auto;
+    /*padding:10px;
+    background: rgb(0,0,0);
+    background: -moz-linear-gradient(-45deg, rgba(0,0,0,1) 0%, rgba(69,72,77,1) 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(69,72,77,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(69,72,77,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(69,72,77,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(0,0,0,1) 0%,rgba(69,72,77,1) 100%);
+    background: linear-gradient(135deg, rgba(0,0,0,1) 0%,rgba(69,72,77,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#45484d',GradientType=1 );*/
+}
+
+
 
 .terminal-target{
     vertical-align:bottom;
@@ -91,6 +236,7 @@ body {
     height:1px;
     width:1px;
 }
+
 
 .damn-ie .terminal-target{
     height:0;
@@ -132,6 +278,7 @@ body {
     box-shadow: 0 0 20px rgba(217, 215, 255, 0.85) inset, 2px 2px 16px #000;
     transition: linear box-shadow .2s;
     padding:0;
+    margin: 0px auto
 }
 
 .vintage-terminal .terminal-viewport {
@@ -144,17 +291,21 @@ body {
 
 .navtainer {
   background-color: #333;
+  text-align: center;
+  width: 100%
 }
+
 .usernav {
   margin: auto
 }
 
 ul {
-    list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    display: inline-block;
+    list-style-type: none;
 }
 
 li {

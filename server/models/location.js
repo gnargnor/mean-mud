@@ -15,7 +15,8 @@ var LocationSchema = new Schema({
   locName : {type: String},
   locDesc : {type: String, required: true},
   locShortDesc : {type: String},
-  locNotes : {type: String}
+  locNotes : {type: String},
+  startLoc : {type: Boolean, default: false}
 
 });
 

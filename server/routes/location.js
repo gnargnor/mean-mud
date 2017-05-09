@@ -12,7 +12,8 @@ router.post('/', function(req, res){
     locDesc: req.body.locDesc,
     locShortDesc: req.body.locShortDesc,
     _world: req.body._world,
-    _creator: req.user._id
+    _creator: req.user._id,
+    startLoc: req.body.startLoc
   });
   console.log('locationServer: ', locationServer);
   locationServer.save(function(err, newLoc){
