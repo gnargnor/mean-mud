@@ -2,24 +2,24 @@
 
 .config(['commandBrokerProvider', function (commandBrokerProvider) {
 
-  //test interpretter input
-  // commandBrokerProvider.appendCommandHandler({
-  //     command: 'hack',
-  //     description: ['returns description'],
-  //     handle: function (session, party) {
-  //         //this defines a as an array with each word
-  //         var b = party;
-  //         var a = ['successful', 'hack', ':', b];
-  //
-  //         console.log();
-  //
-  //         session.output.push({ output: true, text: [a.join(' ')], breakLine: true });
-  //         // a = testObject.bingbong;
-  //         // b = testObject.dingdong;
-  //         // session.output.push({ output: true, text: [b.join(' ')], breakLine: true });
-  //
-  //     }
-  // });
+  // test interpretter input
+  commandBrokerProvider.appendCommandHandler({
+      command: 'hack',
+      description: ['returns description'],
+      handle: function (session, party) {
+          //this defines a as an array with each word
+          var b = party;
+          var a = ['successful', 'hack', ':', b];
+
+          console.log();
+
+          session.output.push({ output: true, text: [a.join(' ')], breakLine: true });
+          // a = testObject.bingbong;
+          // b = testObject.dingdong;
+          // session.output.push({ output: true, text: [b.join(' ')], breakLine: true });
+
+      }
+  });
 
   var underlineLoc = function(locName){
     var line = '';
@@ -191,6 +191,20 @@
               _scope.$broadcast('terminal-apply', {});
             });
             break;
+            case 'sights':
+            _http.get('/sight').then(function(response){
+              console.log('sight response: ', response.data);
+                var sights =  response.data;
+                var sightNames = [];
+                for(var i = 0; i < response.data.length; i++) {
+                  sightNames.push(response.data[i].sightName);
+                }
+                console.log();
+                session.output.push({ output: true, text: [sightNames.join(' - ')], breakLine: true });
+                // Broadcast an apply
+                _scope.$broadcast('terminal-apply', {});
+              });
+              break;
           default:
             session.output.push({ output: true, text: [whatList.join(' ')], breakLine: true });
             // Broadcast an apply

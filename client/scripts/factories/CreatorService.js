@@ -68,6 +68,17 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       });
   };
 
+  var worldCreator = function(newWorld){
+    var postWorld = newWorld;
+    newWorld = {};
+    $http.post('/world', postWorld)
+      .then(function(response){
+        console.log('worldCreator request: ', response);
+        worldsObject.curWorld = response.data;
+        worldGetter();
+      });
+  };
+
   var locGetter = function(curWorldId){
     if (worldsObject.curWorld._id === ''){
       console.log('curWorld not defined in locationGetter');
@@ -166,6 +177,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
   itemGetter : itemGetter,
   // locationGetter : locationGetter,
   worldGetter : worldGetter,
+  worldCreator : worldCreator,
   worldFiller : worldFiller,
   locationFiller : locationFiller,
 
@@ -178,16 +190,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
 
   //world functions
 
-  worldCreator : function(newWorld){
-    var postWorld = newWorld;
-    newWorld = {};
-    $http.post('/world', postWorld)
-      .then(function(response){
-        console.log('worldCreator request: ', response);
-        worldsObject.curWorld = response.data;
-        worldGetter();
-      });
-  },
+
 
   worldUpdater : function(curWorld){
     var putWorld = curWorld;

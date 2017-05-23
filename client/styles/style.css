@@ -12,6 +12,14 @@ a {
    color: white
 }
 
+.meanmudtitle {
+  font-size: 80px
+}
+
+a:hover{
+  color : black;
+}
+
 .viewbg {
   max-width: 1200px;
   height: 100%;
@@ -103,19 +111,24 @@ input, button, select, textarea {
     color: black;
 }
 
-.loginForm {
+.loginForm, .registerForm {
   background-color: rgba(38, 63, 127, 0.6);
   border: 2px double rgb(43, 81, 127);
   border-radius: 8px;
   padding: 5px;
   margin: 5px auto 5px;
+  text-align: center;
 }
 
 .loginForm text password {
   color: black
 }
 
-.loginbg {
+.registerForm text password {
+  color : black
+}
+
+.loginbg, .registerbg{
   max-width: 324px;
   border: 2px double white;
   border-radius: 4px;
@@ -123,7 +136,7 @@ input, button, select, textarea {
   margin: 10px auto;
 }
 
-.loginfg {
+.loginfg .registerfg{
   max-width: 310px;
   border: 2px double white;
   border-radius: 4px;
