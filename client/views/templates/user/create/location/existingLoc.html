@@ -4,7 +4,7 @@
   <div class="viewfg">
   <!-- display all current room properties -->
   <div class="row">
-    <h2 class="titleh2">{{location.locationsObject.curLoc.locName}}</h2>
+    <h2 class="titleh2" ng-click="location.returnToWorldHome()">{{location.locationsObject.curLoc.locName}}</h2>
     <p ng-show="location.locationsObject.curLoc.locDesc" class="titlep">{{location.locationsObject.curLoc.locDesc}}</p>
   </div>
 

@@ -12,6 +12,11 @@ app.controller('LocationController', ['CreatorService', '$scope', '$http', '$loc
   location.locationDeleter = CreatorService.locationDeleter;
   location.locationFiller = CreatorService.locationFiller;
 
+  location.returnToWorldHome = function(){
+    console.log('returnToWorldHome click');
+    $location.path('/worldHome');
+  };
+
   // location.locationFiller(location.locationsObject.curLoc._id);
   console.log('locationController curLoc: ', location.locationsObject.curLoc);
 

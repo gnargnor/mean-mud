@@ -335,6 +335,13 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
 
   },
 
+  destinationUpdater : function(destLoc, exit){
+    $http.put('/location/destination/' + destLoc + '/' + exit)
+      .then(function(response){
+        console.log('destinationUpdater response: ', response.data);
+      });
+  },
+
   exitUpdater : function(curExit){
     console.log('curExit in exitUpdater: ', curExit._id);
     var putExit = curExit;
