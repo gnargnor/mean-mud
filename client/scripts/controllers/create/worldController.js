@@ -69,6 +69,7 @@ app.controller('WorldController', ['CreatorService', '$scope', '$http', '$locati
   world.displayDescViewLoc = false;
 
     world.addLocation = function(){
+      console.log('addLocation clicked');
       if (world.editLocationView || world.displayDescViewLoc) {
         world.editLocationView = false;
         world.displayDescViewLoc = false;

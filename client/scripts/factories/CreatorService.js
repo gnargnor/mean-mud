@@ -50,6 +50,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     curExit : {
       exitDir : '',
       exitDesc : '',
+      _destLoc : '',
       open : true,
       unlocked : true
     }

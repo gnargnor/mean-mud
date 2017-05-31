@@ -11,6 +11,7 @@ router.post('/', function(req, res){
     dateCreated : new Date(),
     exitDir : req.body.exitDir,
     exitDesc : req.body.exitDesc,
+    _destLoc : req.body._destLoc,
     open : req.body.open,
     unlocked : req.body.unlocked
   });
@@ -35,6 +36,7 @@ router.put('/', function(req, res){
     console.log('curExit in put exit: ', curExit);
     curExit.exitDir = putExit.exitDir || curExit.exitDir;
     curExit.exitDesc = putExit.exitDesc || curExit.exitDesc;
+    curExit._destLoc = putExit._destLoc || curExit._destLoc;
     curExit.open = putExit.open || curExit.open;
     curExit.unlocked = putExit.unlocked || curExit.unlocked;
     curExit.save(function(err, updatedExit){

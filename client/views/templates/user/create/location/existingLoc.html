@@ -136,7 +136,8 @@
         <div class="form-group">
           <label for="exitDest" class="col-sm-2 control-label"> Select exit destination: </label><br>
           <div class="col-sm-10">
-            <select name="exitDestSelect" id="exitDestSelect" ng-model="location.exitsObject.curExit.exitDest" ng-options="loc.locName for loc in location.locationsObject.curLocs">
+            <select name="exitDestSelect" id="exitDestSelect" ng-model="location.exitsObject.curExit._destLoc" ng-options="loc.locName for loc in location.locationsObject.curLocs">
+              
             </select><br>
           </div>
         </div>
@@ -195,12 +196,16 @@
           </div>
         </div>
 
-        <!-- <div class="form-group">
-          <label for="exitDir" class="col-sm-2 control-label">Direction:</label>
+        <div class="form-group">
+          <label for="_destLoc" class="col-sm-2 control-label"> Select exit destination: </label><br>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="exitDir" placeholder="exitDir" ng-model="location.exitsObject.curExit.exitDir">
+            <select name="destLocSelect" id="destLocSelect" ng-model="location.exitsObject.curExit._destLoc" ng-options="loc._id as loc.locName for loc in location.locationsObject.curLocs">
+              <option value="">---Please select---</option> <!-- not selected / blank option -->
+            </select><br>
           </div>
-        </div> -->
+        </div>
+
+
         <div class="form-group">
           <label for="exitDesc" class="col-sm-2 control-label">Exit Description:</label>
           <div class="col-sm-10">

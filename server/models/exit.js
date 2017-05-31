@@ -9,7 +9,7 @@ var ExitSchema = new Schema({
   dateCreated : {type: Date, default: Date.now},
   exitDir : {type: String, required: true},
   exitDesc : {type: String, required: true},
-  destLocation : {type: Schema.ObjectId, ref: 'Location'},
+  _destLoc : {type: Schema.ObjectId, ref: 'Location'},
   open : {type: Boolean, default: true, required: true},
   unlocked : {type: Boolean, default: true, required: true}
 });
