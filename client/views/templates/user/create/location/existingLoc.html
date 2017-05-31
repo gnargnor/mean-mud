@@ -118,10 +118,10 @@
 
       <div class="leftSide" ng-show="location.editExitView"><!-- Displays Focused Exit for Editing -->
       <h4>Edit Exit:</h4><hr>
-      <form class="form-horizontal" ng-submit="location.exitUpdater(location.exitsObject.curExit); location.displayViewForExit()">
+      <form class="form-horizontal" id="editExit" ng-submit="location.exitUpdater(location.exitsObject.curExit); location.displayViewForExit()">
 
         <div class="form-group">
-          <label for="exitDir" class="col-sm-2 control-label"> Select exit direction:: </label><br>
+          <label for="exitDir" class="col-sm-2 control-label"> Select exit direction: </label><br>
           <div class="col-sm-10">
             <select name="exitDirSelect" id="exitDirSelect" ng-model="location.exitsObject.curExit.exitDir">
               <option value="{{location.exitsObject.curExit.exitDir}}">Current ({{location.exitsObject.curExit.exitDir}})</option>
@@ -137,7 +137,7 @@
           <label for="exitDest" class="col-sm-2 control-label"> Select exit destination: </label><br>
           <div class="col-sm-10">
             <select name="exitDestSelect" id="exitDestSelect" ng-model="location.exitsObject.curExit._destLoc" ng-options="loc.locName for loc in location.locationsObject.curLocs">
-              
+
             </select><br>
           </div>
         </div>
@@ -145,7 +145,7 @@
         <div class="form-group">
           <label for="exitDesc" class="col-sm-2 control-label">Exit Description:</label>
           <div class="col-sm-10">
-            <input type="textarea" class="form-control" id="response" placeholder="{{location.exitsObject.curExit.exitDesc}}" ng-model="location.exitsObject.curExit.exitDesc">
+            <textarea class="form-control" id="exitDesc" form="editExit" cols="60" rows="2" placeholder="{{location.exitsObject.curExit.exitDesc}}" ng-model="location.exitsObject.curExit.exitDesc"></textarea>
           </div>
         </div>
 
