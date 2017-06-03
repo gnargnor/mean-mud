@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var mongoURI = '';
 // process.env.MONGODB_URI will only be defined if you
 // are running on Heroku
-if(process.env.MONGODB_URI !== undefined) {
+if (process.env.MONGODB_URI !== undefined) {
     // use the string value of the environment variable
     mongoURI = process.env.MONGODB_URI;
 } else {
@@ -14,15 +14,15 @@ if(process.env.MONGODB_URI !== undefined) {
 // var mongoURI = "mongodb://localhost:27017/meanmud";
 var mongoDB = mongoose.connect(mongoURI).connection;
 
-mongoDB.on('error', function(err){
-   if(err) {
-     console.log("MONGO ERROR: ", err);
-   }
-   res.sendStatus(500);
+mongoDB.on('error', function(err, res) {
+    if (err) {
+        console.log("MONGO ERROR: ", err);
+    }
+    res.sendStatus(500);
 });
 
-mongoDB.once('open', function(){
-   console.log("Connected to Mongo, meow!");
+mongoDB.once('open', function() {
+    console.log("Connected to Mongo, meow!");
 });
 
 module.exports = mongoDB;
