@@ -62,7 +62,7 @@ Follow the steps below to get a copy of the MEAN MUD application up and running 
 * [Express](http://expressjs.com/)
 * [MongoDB](https://mongodb.com)
 * [AngularJS](https://angularjs.org)
-* [Mongoose](mongoosejs.com)
+* [Mongoose](http://mongoosejs.com)
 * [Bootstrap 3](http://getbootstrap.com/)
 * [Passport](https://passportjs.org)
 * [Angular Terminal](https://vtortola.github.io/ng-terminal-emulator/)
@@ -80,7 +80,7 @@ MEAN MUD v2
 
 * **Logan Kelly** - *Initial work* -  
   * [github.com/gnargnor](https://github.com/gnargnor)  
-  * [Bizzey Tech, LLC](www.bizzeytech.com)
+  * [Bizzey Tech, LLC](http://www.bizzeytech.com)
 
 ## License
 
@@ -90,4 +90,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * [Angular Terminal](https://vtortola.github.io/ng-terminal-emulator/) - implemented and edited the source code for the gameplay terminal
 * [Chris Black](https://github.com/christopher-black) - suggested and helped with the implementation of Angular-Terminal
-* [Prime Academy](www.primeacademy.io) - this project is the result of my first solo project completed at Prime Academy
+* [Prime Academy](http://www.primeacademy.io) - this project is the result of my first solo project completed at Prime Academy
