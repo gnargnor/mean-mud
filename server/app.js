@@ -5,6 +5,7 @@ var path = require('path');
 
 var passport = require('./strategies/userStrategy');
 var session = require('express-session');
+var dotenv = require('dotenv').config();
 
 // Route includes
 var index = require('./routes/index');
@@ -27,7 +28,7 @@ app.use(express.static('./server/public'));
 
 // Passport Session Configuration //
 app.use(session({
-   secret: 'secret',
+   secret: process.env.PASSPORT_SECRET,
    key: 'user', // this is the name of the req.variable. 'user' is convention, but not required
    resave: 'true',
    saveUninitialized: false,
