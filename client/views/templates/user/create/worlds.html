@@ -6,7 +6,9 @@
         <hr />
 
         <div class="row" id="worlds">
+            <!-- left side -->
             <div class="col col-lg-4 col-md-4 col-sm-12" id="worldNames">
+
                 <!-- Lists worlds -->
                 <div class="leftSide">
                     <h4><strong>Worlds: </strong></h4>
@@ -18,9 +20,12 @@
                     <span class="glyphicon glyphicon-plus clickable" ng-click="worlds.addWorld()"></span>
                 </div>
                 <!-- End list worlds -->
+
             </div>
 
+            <!-- right side -->
             <div class="col col-lg-8 col-md-8 col-sm-12">
+
                 <!-- Displays world name and description -->
                 <div class="rightSide" id="worldDetail" ng-show="worlds.displayDescViewWorld">
                     <h3>{{worlds.worldsObject.curWorld.worldName}}</h3>
@@ -31,8 +36,9 @@
                 </div>
                 <!-- End world description -->
 
-                <div ng-show="worlds.editWorldView" class="rightSide">
-                    <!-- Displays focused world for editing -->
+
+                <!-- Displays focused world for editing -->
+                <div ng-show="worlds.editWorldView" class="rightSide"> 
                     <h4>Edit World:</h4>
                     <hr />
                     <form class="form-horizontal" ng-submit="worlds.worldUpdater(worlds.worldsObject.curWorld); worlds.displayViewForWorld()">
@@ -59,8 +65,9 @@
                 </div>
                 <!-- End edit world -->
 
-                <div ng-show="worlds.addWorldView" class="rightSide">
-                    <!-- Displays form for adding sight -->
+
+                <!-- Displays form for adding world -->
+                <div ng-show="worlds.addWorldView" class="rightSide"> 
                     <h4>Add World:</h4>
                     <hr />
                     <form class="form-horizontal" ng-submit="worlds.worldCreator(worlds.worldsObject.curWorld); worlds.displayViewForWorld()">
@@ -86,8 +93,9 @@
                         </div>
 
                     </form>
-                <!-- End add sight -->
                 </div>
+                <!-- End add world -->
+
             </div>
         </div>
     </div>
