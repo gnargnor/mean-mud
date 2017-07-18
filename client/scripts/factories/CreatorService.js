@@ -1,12 +1,11 @@
 app.factory('CreatorService', ['UserService', '$http', '$location', function(UserService, $http, $location){
 
-  //message object
-
+  /** message object */
   var messageObject = {
     message: ''
   };
 
-  //angular vessels
+  /** angular object vessels */
   var worldsObject = {
     curWorlds : [],
     curWorld : {
@@ -54,9 +53,10 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       open : true,
       unlocked : true
     }
-  };//angular vessels
+  };
+  /** end angular object vessels */
 
-  //getters
+  /** world functions */
   var worldGetter = function(){
     $http.get('/world')
       .then(function(response){
@@ -79,7 +79,35 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
         worldGetter();
       });
   };
+  
+  var worldUpdater = function(curWorld){
+    var putWorld = curWorld;
+    $http.put('/world', putWorld)
+      .then(function(response){
+        console.log('worldUpdater response: ', response);
+        worldGetter();
+      });
+  };
 
+  var worldDeleter = function(curWorldId){
+    console.log('world to delete', curWorldId);
+    $http({
+      url : '/world/' + curWorldId,
+      method : 'DELETE'})
+      .then(function(response){
+        worldsObject.curWorld = {};
+        console.log('worldDeleter response: ', response);
+        worldGetter();
+      });
+  };
+
+  var worldFiller = function(curWorldId){
+    locGetter(curWorldId);
+    itemGetter(curWorldId);
+  };
+  /** end world functions */
+
+  /** location functions */
   var locGetter = function(curWorldId){
     if (worldsObject.curWorld._id === ''){
       console.log('curWorld not defined in locationGetter');
@@ -97,9 +125,10 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       }
       console.log('locGetter pushed: ', locationsObject.curLocs);
     });
+  };
 
-};
 
+  /** item functions */
   var itemGetter = function(curWorldId){
     if (worldsObject.curWorld._id === ''){
       console.log('curWorld is not defined in itemGetter');
@@ -119,7 +148,9 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       }
     });
   };
+  /** end item functions */
 
+  /** sight functions */
   var sightGetter = function(curLocId){
     if (curLocId === ''){
       console.log('curLoc is not defined in sightGetter');
@@ -139,6 +170,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
       console.log('sightsReturned: ', sightsReturned);
     });
   };
+  /** end sight functions */
 
   var exitGetter = function(curLocId){
     if (curLocId === ''){
@@ -160,10 +192,7 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     });
   };
 
-  var worldFiller = function(curWorldId){
-    locGetter(curWorldId);
-    itemGetter(curWorldId);
-  };
+  
 
   var locationFiller = function(curLocId) {
 
@@ -177,10 +206,18 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
   messageObject : messageObject,
   itemGetter : itemGetter,
   // locationGetter : locationGetter,
+
+  //world function returns
   worldGetter : worldGetter,
   worldCreator : worldCreator,
+  worldUpdater : worldUpdater,
+  worldDeleter : worldDeleter,
   worldFiller : worldFiller,
+  //end world function returns
+
+  //location functions
   locationFiller : locationFiller,
+  //end location functions
 
   //angular vessels
   worldsObject : worldsObject,
@@ -188,31 +225,9 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
   itemsObject : itemsObject,
   sightsObject : sightsObject,
   exitsObject : exitsObject,
+  //end angular vessels
 
-  //world functions
-
-
-
-  worldUpdater : function(curWorld){
-    var putWorld = curWorld;
-    $http.put('/world', putWorld)
-      .then(function(response){
-        console.log('worldUpdater response: ', response);
-        worldGetter();
-      });
-  },
-//THIS WORKS - FOR THE LOVE OF GOD
-  worldDeleter : function(curWorldId){
-    console.log('world to delete', curWorldId);
-    $http({
-      url : '/world/' + curWorldId,
-      method : 'DELETE'})
-      .then(function(response){
-        worldsObject.curWorld = {};
-        console.log('worldDeleter response: ', response);
-        worldGetter();
-      });
-  },
+  
 
   //world functions
 

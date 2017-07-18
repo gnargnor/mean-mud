@@ -18,6 +18,10 @@ a {
   color: white
 }
 
+#tagline {
+    margin: 0px auto 10px;
+}
+
 
 .viewbg {
   max-width: 1200px;
@@ -180,7 +184,7 @@ input, button, select, textarea {
 }
 
 .instructions {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     margin: 0px auto;
     color: #DDDDDD;
     text-align: center;
@@ -324,20 +328,24 @@ input, button, select, textarea {
 }
 
 .navtainer {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(38, 63, 127, 0.5);
+  margin: 0px;
+  margin-bottom: 10px;
+  padding: 0px;
   text-align: center;
+  line-height: 100%;
   width: 100%
 }
 
 .usernav {
-  margin: auto
+  margin: auto;
 }
 
 ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    /* background-color: rgba(0, 0, 0, 0.5); */
+     /* background-color: rgba(0, 0, 0, 0.3);  */
     display: inline-block;
     list-style-type: none;
 }
@@ -351,7 +359,7 @@ li a {
     color: white;
     text-align: center;
     margin: 1px 1px;
-    padding: 14px 16px;
+    padding: 10px 16px; 
     text-decoration: none;
 }
 

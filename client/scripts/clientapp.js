@@ -31,6 +31,16 @@ app.config(['$routeProvider', '$locationProvider',
       }
     })//user
 
+    //help route
+    .when('/help', {
+      templateUrl: '/views/templates/user/help.html',
+      resolve: {
+        getuser : ['UserService', function(UserService){
+          return UserService.getuser();
+        }]
+      }
+    })
+
     //world list
     .when('/worlds', {
       templateUrl: '/views/templates/user/create/worlds.html',
