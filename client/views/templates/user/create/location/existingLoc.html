@@ -146,7 +146,8 @@
 
                 <!-- display exits-->
                 <div class="rightSide" id="exitDetail" ng-show="location.displayDescViewExit">
-                    <h3>{{location.exitsObject.curExit.exitDir}}</h3>
+                    <h3>{{location.exitsObject.curExit.exitDir}}</h3><br />
+                    <!-- <h2>{{location.exitsObject.curExit._destLoc}}</h2> -->
                     <p>{{location.exitsObject.curExit.exitDesc}}</p>
                     <span class="glyphicon glyphicon-pencil" ng-click="location.editExit()" ng-show="location.exitsObject.curExit._id"></span>
                 </div>
@@ -162,7 +163,7 @@
                             <label for="exitDir" class="col-sm-2 control-label"> Select exit direction: </label><br>
                             <div class="col-sm-10">
                                 <select name="exitDirSelect" id="exitDirSelect" ng-model="location.exitsObject.curExit.exitDir">
-                                  <option value="{{location.exitsObject.curExit.exitDir}}">Current ({{location.exitsObject.curExit.exitDir}})</option>
+                                  <option value="{{location.exitsObject.curExit.exitDir}}">Current ({{location.exitsObject.curExit.exitDir}})</option> 
                                   <option value="north">North</option>
                                   <option value="east">East</option>
                                   <option value="south">South</option>
@@ -175,8 +176,8 @@
                             <label for="exitDest" class="col-sm-2 control-label"> Select exit destination: </label><br>
                             <div class="col-sm-10">
                                 <select name="exitDestSelect" id="exitDestSelect" ng-model="location.exitsObject.curExit._destLoc" ng-options="loc.locName for loc in location.locationsObject.curLocs">
-                                    <option value="{{location.exitsObject.curExit._destLoc}}">Current ({{location.exitsObject.curExit._destLoc}})</option>
-                                </select><br>
+                                    <!-- <option value="{{location.exitsObject.curExit._destLoc}}">Current ({{location.exitsObject.curExit._destLoc}})</option> -->
+                                </select><br/>
                             </div>
                         </div>
 
@@ -284,7 +285,7 @@
             <!-- end left side -->
         </div>
         <!-- end exits -->
-        
+
         <!-- populate a list of current location objects -->
         <!-- populate a list of current location characters -->
         <!-- populate a list of current location eventListeners -->
