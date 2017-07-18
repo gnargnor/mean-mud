@@ -5,7 +5,8 @@ app.controller('LocationController', ['CreatorService', '$scope', '$http', '$loc
 
   //Focuses selected element to corresponding object's curSight
   location.displayDesc = CreatorService.displayDesc;
-
+  
+  location.worldsObject = CreatorService.worldsObject;
   location.locationsObject = CreatorService.locationsObject;
   location.locationCreator = CreatorService.locationCreator;
   location.locationUpdater = CreatorService.locationUpdater;

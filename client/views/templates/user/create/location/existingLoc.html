@@ -4,32 +4,35 @@
   <div class="viewfg">
   <!-- display all current room properties -->
   <div class="row">
-    <h2 class="titleh2" ng-click="location.returnToWorldHome()">{{location.locationsObject.curLoc.locName}}</h2>
-    <p ng-show="location.locationsObject.curLoc.locDesc" class="titlep">{{location.locationsObject.curLoc.locDesc}}</p>
+    <h2 class="titleh2" class="clickable" ng-click="location.returnToWorldHome()">{{location.worldsObject.curWorld.worldName}}</h2>
+    <h3 class="titleh3">{{location.locationsObject.curLoc.locName}}</h3><hr />
+    <!-- <p ng-show="location.locationsObject.curLoc.locDesc" class="titlep">{{location.locationsObject.curLoc.locDesc}}</p> -->
   </div>
 
   <!-- SIGHTS -->
   <div class="row" id="sights">
-    <div class="col col-lg-4 col-md-4 col-sm-12 leftSide" id="sightNames">
+    <div class="col col-lg-4 col-md-4 col-sm-12" id="sightNames">
       <!-- Displays Location Sights from sightsObject.curSights -->
-      <h4>Sights (click to edit): </h4>
-      <div ng-repeat="sight in location.sightsObject.curSights">
-        <!-- Click to focus -->
-        <p ng-click="location.displayDesc(sight); location.displayViewForSight()">{{sight.sightName}} <span class="glyphicon glyphicon-minus" ng-click="location.sightDeleter(sight._id)"></span></p>
+      <div class="leftSide"><h4>Sights (click to edit): </h4><hr />
+        <div ng-repeat="sight in location.sightsObject.curSights">
+          <!-- Click to focus -->
+          <p class="clickable" ng-click="location.displayDesc(sight); location.displayViewForSight()">{{sight.sightName}} <span class="glyphicon glyphicon-minus clickable" ng-click="location.sightDeleter(sight._id)"></span></p>
+        </div>
+        <hr />
+        <span class="glyphicon glyphicon-plus clickable" ng-click="location.newSight()"></span>
       </div>
-      <span class="glyphicon glyphicon-plus" ng-click="location.newSight()"></span>
     </div>
     <!-- End Exit Repeat-->
 
     <div class="col col-lg-8 col-md-8 col-sm-12">
       <!-- Displays Focused Sight -->
-      <div class="col col-lg-8 col-md-8 col-sm-12 leftSide" id="sightDetail" ng-show="location.displayDescViewSight">
+      <div class="rightSide" id="sightDetail" ng-show="location.displayDescViewSight">
         <h3>{{location.sightsObject.curSight.sightName}}</h3>
         <p>{{location.sightsObject.curSight.sightDesc}}</p>
         <span class="glyphicon glyphicon-pencil" ng-click="location.editSight()" ng-show="location.sightsObject.curSight._id">
       </div><!-- End Display Focused Sight -->
 
-      <div class="leftSide" ng-show="location.editSightView"><!-- Displays focused sight for editing -->
+      <div class="rightSide" ng-show="location.editSightView"><!-- Displays focused sight for editing -->
       <h4>Edit Sight:</h4>
       <form class="form-horizontal" ng-submit="location.sightUpdater(location.sightsObject.curSight); location.displayViewForSight()">
         <div class="form-group">
@@ -61,7 +64,7 @@
       </form>
     </div><!-- End edit Sight -->
 
-  <div class="leftSide" ng-show="location.addSightView"><!-- Displays form for adding sight -->
+  <div class="rightSide" ng-show="location.addSightView"><!-- Displays form for adding sight -->
     <h4>Add Sight:</h4><hr>
     <form class="form-horizontal" ng-submit="location.sightCreator(location.sightsObject.curSight); location.displayViewForSight()">
       <div class="form-group">
@@ -99,24 +102,26 @@
 
   <!-- EXITS -->
   <div class="row">
-    <div class="col col-lg-4 col-md-4 col-sm-12 leftSide"><!-- Displays Exits from ExitsObject.curExits -->
-      <h4>Exits (click to edit): </h4><hr>
-      <div ng-repeat="exit in location.exitsObject.curExits"><!-- Click to Focus -->
-        <p ng-click="location.displayDesc(exit); location.displayViewForExit()">{{exit.exitDir}} <span class="glyphicon glyphicon-minus" ng-click="location.exitDeleter(exit._id)"></span></p>
+    <div class="col col-lg-4 col-md-4 col-sm-12"><!-- Displays Exits from ExitsObject.curExits -->
+      <div class="leftSide"><h4>Exits (click to edit): </h4><hr>
+        <div ng-repeat="exit in location.exitsObject.curExits"><!-- Click to Focus -->
+          <p ng-click="location.displayDesc(exit); location.displayViewForExit()">{{exit.exitDir}} <span class="glyphicon glyphicon-minus" ng-click="location.exitDeleter(exit._id)"></span></p>
+        </div>
+        <hr />
+        <span class="glyphicon glyphicon-plus" ng-click="location.newExit()"></span>
       </div>
-      <span class="glyphicon glyphicon-plus" ng-click="location.newExit()"></span>
     </div>
     <!-- End Exit Repeat -->
 
     <div class="col col-lg-8 col-md-8 col-sm-12">
       <!-- Displays Description of Focused Exit-->
-      <div class="col col-lg-8 col-md-8 col-sm-12 leftSide" id="exitDetail" ng-show="location.displayDescViewExit">
+      <div class="rightSide" id="exitDetail" ng-show="location.displayDescViewExit">
         <h3>{{location.exitsObject.curExit.exitDir}}</h3>
         <p>{{location.exitsObject.curExit.exitDesc}}</p>
         <span class="glyphicon glyphicon-pencil" ng-click="location.editExit()" ng-show="location.exitsObject.curExit._id">
       </div><!-- End Display Focused Exit -->
 
-      <div class="leftSide" ng-show="location.editExitView"><!-- Displays Focused Exit for Editing -->
+      <div class="rightSide" ng-show="location.editExitView"><!-- Displays Focused Exit for Editing -->
       <h4>Edit Exit:</h4><hr>
       <form class="form-horizontal" id="editExit" ng-submit="location.exitUpdater(location.exitsObject.curExit); location.displayViewForExit()">
 
@@ -179,7 +184,7 @@
       </form>
     </div><!-- End Edit Exit -->
 
-    <div class="leftSide" ng-show="location.addExitView"><!-- Displays Form for Adding Exit -->
+    <div class="rightSide" ng-show="location.addExitView"><!-- Displays Form for Adding Exit -->
       <h4>Add Exit:</h4><hr>
       <form class="form-horizontal" ng-submit="location.exitCreator(location.exitsObject.curExit); location.displayViewForExit()">
 

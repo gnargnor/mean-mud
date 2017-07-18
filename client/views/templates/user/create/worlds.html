@@ -2,29 +2,30 @@
 <!-- <h1 class="lead alert alert-danger" role="alert" ng-if="worlds.messageObject.message != ''">{{worlds.messageObject.message}}</h1> -->
 <div class="container viewbg">
   <div class="container viewfg">
-  <h2 class="titleh1">Your Worlds:</h2>
+  <h2 class="titleh2">Your Worlds</h2><hr />
 
   <div class="row" id="worlds">
-    <div class="col col-lg-4 col-md-4 col-sm-12 leftSide" id="worldNames">
-      <h4><strong>Worlds: </strong>(click to see description)</h4><hr>
-
+    <div class="col col-lg-4 col-md-4 col-sm-12" id="worldNames">
+      <div class="leftSide">
+        <h4><strong>Worlds: </strong></h4><hr>
         <div ng-repeat="world in worlds.worldsObject.curWorlds">
-            <p><span ng-click="worlds.displayDesc(world); worlds.displayViewForWorld()">{{world.worldName}} </span><span class="glyphicon glyphicon-minus" ng-click="worlds.worldDeleter(world._id)"></span></p>
+            <p><span class="clickable" ng-click="worlds.displayDesc(world); worlds.displayViewForWorld()">{{world.worldName}} </span><span class="glyphicon glyphicon-minus clickable" ng-click="worlds.worldDeleter(world._id)"></span></p>
         </div>
         <hr>
-      <span class="glyphicon glyphicon-plus" ng-click="worlds.addWorld()"></span>
+        <span class="glyphicon glyphicon-plus clickable" ng-click="worlds.addWorld()"></span>
+      </div>
     </div>
     <div class="col col-lg-8 col-md-8 col-sm-12">
-      <div class="col col-lg-8 col-md-8 col-sm-12 leftSide" id="worldDetail" ng-show="worlds.displayDescViewWorld">
+      <div class="rightSide" id="worldDetail" ng-show="worlds.displayDescViewWorld">
           <h3>{{worlds.worldsObject.curWorld.worldName}}</h3>
           <p>{{worlds.worldsObject.curWorld.worldDesc}}</p>
           <p ng-show="worlds.worldsObject.curWorld.author">created by: <strong>{{worlds.worldsObject.curWorld.author}} </strong>{{worlds.worldsObject.curWorld.date | date:'shortDate'}}</p>
-          <span class="glyphicon glyphicon-pencil" ng-click="worlds.editWorld()" ng-show="worlds.worldsObject.curWorld.worldName"></span>
-          <span class="	glyphicon glyphicon-arrow-right" ng-click="worlds.chooseWorld(worlds.worldsObject.curWorld)" ng-show="worlds.worldsObject.curWorld.worldName"></span>
+          <span class="glyphicon glyphicon-pencil clickable" ng-click="worlds.editWorld()" ng-show="worlds.worldsObject.curWorld.worldName"></span>
+          <span class="	glyphicon glyphicon-arrow-right clickable" ng-click="worlds.chooseWorld(worlds.worldsObject.curWorld)" ng-show="worlds.worldsObject.curWorld.worldName"></span>
       </div>
 
-      <div ng-show="worlds.editWorldView" class="leftSide"><!-- Displays focused sight for editing -->
-      <h4>Edit World:</h4>
+      <div ng-show="worlds.editWorldView" class="rightSide"><!-- Displays focused sight for editing -->
+      <h4>Edit World:</h4><hr />
       <form class="form-horizontal" ng-submit="worlds.worldUpdater(worlds.worldsObject.curWorld); worlds.displayViewForWorld()">
         <div class="form-group">
           <label for="worldName" class="col-sm-2 control-label">World Name:</label>
@@ -47,8 +48,8 @@
       </form>
     </div><!-- End edit Sight -->
 
-    <div ng-show="worlds.addWorldView" class="leftSide"><!-- Displays form for adding sight -->
-      <h4>Add World:</h4>
+    <div ng-show="worlds.addWorldView" class="rightSide"><!-- Displays form for adding sight -->
+      <h4>Add World:</h4><hr />
       <form class="form-horizontal" ng-submit="worlds.worldCreator(worlds.worldsObject.curWorld); worlds.displayViewForWorld()">
 
         <div class="form-group">
