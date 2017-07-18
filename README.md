@@ -1,5 +1,11 @@
 # MEAN MUD v2
 
+## Updates In Progress - 07/18/17
+
+I recently hosted this application with Heroku and will be making updates to the source code.  I intend to add instructions, extend the functionality of the Gameplay Terminal, and clean up the code for production.  Stay Tuned.
+
+## App Description
+
 MEAN MUD was developed in the spirit of Multi User Dimension games that first started gaining popularity in the late 1970's.  If you're not familiar with text based role playing games or MUDs, check out these Wikipedia Articles:  
 * [Text Based Adventures](https://en.wikipedia.org/wiki/Text-based_game)
 * [Multi User Dimensions](https://en.wikipedia.org/wiki/MUD)  
@@ -66,6 +72,8 @@ Follow the steps below to get a copy of the MEAN MUD application up and running 
 * [Bootstrap 3](http://getbootstrap.com/)
 * [Passport](https://passportjs.org)
 * [Angular Terminal](https://vtortola.github.io/ng-terminal-emulator/)
+* [Heroku](https://www.heroku.com/)
+* [mLab](https://mlab.com/)
 * Angular Route
 * CSS3
 * HTML5
