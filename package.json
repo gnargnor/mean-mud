@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nodemon server/app.js",
+    "postinstall": "grunt",
     "start": "node server/app.js"
   },
   "author": "Scott Bromander, Kris Szafranski",
