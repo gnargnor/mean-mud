@@ -3,3 +3,4 @@ server/public/
 .DS_Store
 npm-debug.log
 .env
+server/public/
