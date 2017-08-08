@@ -5,6 +5,12 @@ app.factory('CreatorService', ['UserService', '$http', '$location', function(Use
     message: ''
   };
 
+  /** class definitions */
+  class World {
+    
+  }
+
+
   /** angular object vessels */
   var worldsObject = {
     curWorlds : [],

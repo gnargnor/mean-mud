@@ -21,7 +21,7 @@ app.controller('LocationController', ['CreatorService', '$scope', '$http', '$loc
   // location.locationFiller(location.locationsObject.curLoc._id);
   console.log('locationController curLoc: ', location.locationsObject.curLoc);
 
-  //SIGHTS
+  /** sights logic */
   location.sightsObject = CreatorService.sightsObject;
   location.sightCreator = CreatorService.sightCreator;
   location.sightUpdater = CreatorService.sightUpdater;
@@ -55,9 +55,9 @@ app.controller('LocationController', ['CreatorService', '$scope', '$http', '$loc
       }
       location.editSightView = true;
     };
-    //END SIGHTS
+    /** end sights */
 
-  //EXITS
+  /** exits */
   location.exitsObject = CreatorService.exitsObject;
   location.exitCreator = CreatorService.exitCreator;
   location.exitUpdater = CreatorService.exitUpdater;
@@ -91,14 +91,9 @@ app.controller('LocationController', ['CreatorService', '$scope', '$http', '$loc
     }
     location.editExitView = true;
   };
+  /** end exits */
 
 
   location.messageObject = CreatorService.messageObject;
-
-  // location.updateSight = CreatorService.updateSight;
-  // location.getLocations = CreatorService.getLocations;
-  // location.editLocation = CreatorService.editLocation;
-  // location.getLocations();
-
 
 }]);
