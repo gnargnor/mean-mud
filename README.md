@@ -10,7 +10,7 @@ MEAN MUD was developed in the spirit of Multi User Dimension games that first st
 * [Text Based Adventures](https://en.wikipedia.org/wiki/Text-based_game)
 * [Multi User Dimensions](https://en.wikipedia.org/wiki/MUD)  
 
-The MEAN MUD application is intended to allow users to experience building out and playing text based adventure games in a familiar web based environment without the need to learn code.  The GUI interface allows users to save the progress they have made creating worlds (self contained text base gaming environments) and the objects, locations, sights, and characters that bring these worlds to life.
+The MEAN MUD application is intended to allow users to experience building out and playing text based adventure games in a familiar web based environment without the need to learn code.  The GUI interface allows users to save the progress they have made creating worlds (self contained text based gaming environments) and the objects, locations, sights, and characters that bring these worlds to life.
 
 A robust database structure paired with a logical GUI interface guides the creation of the user's worlds in order to allow for a basic gameplay.  The gameplay terminal allows user's to test out how the worlds created will respond to user input.
 
